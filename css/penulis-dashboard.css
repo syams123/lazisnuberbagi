@@ -234,6 +234,131 @@ tbody tr:hover { background: var(--bg-body); }
 /* ── Modal - Profile Image Preview ──────────────────────────── */
 .image-preview img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
 
+
+/* ============================================================
+   FIX: Margin/Padding agar tidak mepet di HP
+   ============================================================ */
+
+/* Container utama dashboard body */
+.dashboard-body {
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Profile section */
+.profile-section {
+    padding: 0;
+    margin-bottom: 24px;
+}
+
+.profile-card {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Stats grid penulis */
+.stats-grid-penulis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Toolbar */
+.dashboard-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Table wrapper */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--radius, 12px);
+    margin-bottom: 40px;
+    box-sizing: border-box;
+}
+
+/* ========== RESPONSIVE HP ========== */
+@media (max-width: 768px) {
+    .dashboard-body {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .stats-grid-penulis {
+        gap: 12px;
+    }
+    
+    .stat-card-penulis {
+        padding: 16px 10px;
+    }
+    
+    .stat-num-penulis {
+        font-size: 1.6rem;
+    }
+    
+    .dashboard-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        justify-content: center;
+    }
+    
+    .btn-primary {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    /* Tabel tetap bisa di-scroll horizontal */
+    .table-wrapper {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    th, td {
+        font-size: 0.75rem;
+        padding: 10px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-body {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    
+    .stats-grid-penulis {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .stat-num-penulis {
+        font-size: 1.4rem;
+    }
+    
+    .stat-lbl-penulis {
+        font-size: 0.7rem;
+    }
+    
+    .profile-card {
+        padding: 20px 16px;
+    }
+}
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .stats-grid  { padding: 0 16px; }
