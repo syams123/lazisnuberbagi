@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Berita & Artikel - Lazisnu Kedungrejo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Sidebar Layout */
+        .berita-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin: 30px 0;
+            align-items: start;
+        }
+        .sidebar-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 22px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            top: 80px;
+            margin-bottom: 15px;
+        }
+        .sidebar-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            color: var(--primary);
+        }
+        .search-box {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 9px 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
+            font-family: inherit;
+            background: var(--bg-body);
+            color: var(--text-dark);
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .search-box button {
+            padding: 9px 14px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+        }
+        .category-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-dark);
+            transition: color 0.2s;
+        }
+        .category-list a:hover { color: var(--primary); }
+        .category-list a:last-child { border-bottom: none; }
+        .cat-count {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        /* Dark Mode - Cat Count */
+body.dark-mode .cat-count {
+    background: rgba(6, 125, 125, 0.25);
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+/* Dark Mode - Category List Link */
+body.dark-mode #categoryList a {
+    color: var(--text-dark-dark);
+}
+
+body.dark-mode #categoryList a:hover {
+    color: var(--primary-light);
+}
+
+/* Dark Mode - Archive List */
+body.dark-mode #archiveList a {
+    color: var(--text-dark-dark);
+}
+
+body.dark-mode #archiveList a:hover {
+    color: var(--primary-light);
+}
+
+/* Dark Mode - Author Item */
+body.dark-mode .author-item {
+    border-bottom-color: var(--border-dark);
+}
+
+body.dark-mode .author-name {
+    color: var(--text-dark-dark);
+}
+
+body.dark-mode .author-badge {
+    color: var(--text-muted-dark);
+}
+
+body.dark-mode .author-avatar {
+    background: rgba(6, 125, 125, 0.2);
+    color: #5db9b9;
+}
+        @media (max-width: 768px) {
+            .berita-layout { grid-template-columns: 1fr; }
+            .sidebar-card { position: static; }
+        }
+        /* Tampilan author item */
+.author-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+.author-item:last-child {
+    border-bottom: none;
+}
+.author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 1rem;
+}
+.author-info {
+    flex: 1;
+}
+.author-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+.author-badge {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+#archiveList a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dark);
+    transition: color 0.2s;
+}
+#archiveList a:last-child {
+    border-bottom: none;
+}
+/* ========== PAGINATION MODERN ========== */
+.pagination-modern {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 40px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+}
+
+.page-prev, .page-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-prev:hover:not(:disabled), 
+.page-next:hover:not(:disabled) {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.page-prev:disabled, .page-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.page-number {
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-number:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.page-number.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.page-dots {
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ========== RESPONSIVE MOBILE ========== */
+
+/* Tablet (641px - 768px) */
+@media (max-width: 768px) {
+    .pagination-modern {
+        gap: 12px;
+        margin-top: 30px;
+        padding: 15px 0;
+    }
+    
+    .page-prev, .page-next {
+        padding: 8px 18px;
+        font-size: 0.8rem;
+    }
+}
+
+/* HP Besar (481px - 640px) */
+@media (max-width: 640px) {
+    .pagination-modern {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+    
+    .page-numbers {
+        width: 100%;
+        order: 0;
+        margin-bottom: 5px;
+    }
+    
+    .page-prev {
+        order: 1;
+    }
+    
+    .page-next {
+        order: 2;
+    }
+    
+    .page-prev, .page-next {
+        padding: 8px 16px;
+    }
+}
+
+/* HP Kecil (max 480px) - HANYA ICON */
+@media (max-width: 480px) {
+    .pagination-modern {
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    /* Sembunyikan teks, tampilkan hanya icon */
+    .page-prev span,
+    .page-next span {
+        display: none;
+    }
+    
+    .page-prev i,
+    .page-next i {
+        margin: 0;
+        font-size: 1rem;
+    }
+    
+    /* Tombol prev-next jadi lingkaran */
+    .page-prev,
+    .page-next {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .page-numbers {
+        gap: 5px;
+        width: 100%;
+        order: 0;
+    }
+    
+    .page-number {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+        padding: 0 5px;
+    }
+    
+    .page-dots {
+        min-width: 28px;
+        height: 32px;
+        font-size: 0.7rem;
+    }
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo"><a href="index.html"><img src="assets/logo.png" alt="Logo Lazisnu"></a></div>
+        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="tentang.html">Tentang Kami</a></li>
+		<li><a href="programs.html">Program Donasi</a></li>
+                <li><a href="artikel.html" class="active">Artikel</a></li>
+                <li class="dropdown" id="loginDropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Masuk <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="login.html"><i class="fas fa-hand-holding-heart"></i> <span>Sebagai Donatur</span></a>
+                        <a href="penulis-login.html"><i class="fas fa-pen-fancy"></i> <span>Sebagai Penulis</span></a>
+                        <a href="admin-login.html"><i class="fas fa-shield-alt"></i> <span>Sebagai Admin</span></a>
+                    </div>
+                </li>
+                <li><button id="darkModeToggle" class="dark-toggle"><i class="fas fa-moon"></i></button></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="page-header">
+    <div class="container">
+        <h1>Artikel</h1>
+        <p>Media Informasi dan Berita seputar kegiatan dan program Lazisnu Kedungrejo</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="berita-layout">
+        <!-- Artikel List -->
+        <div>
+            <div class="filter-buttons" id="filterButtons">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+            </div>
+            <div class="berita-grid" id="beritaGrid">
+                <div class="loading-indicator"><i class="fas fa-spinner fa-spin"></i>Memuat artikel...</div>
+            </div>
+            <div class="pagination-modern" id="paginationContainer">
+                <button class="page-prev" id="prevPageBtn" disabled>
+                    <i class="fas fa-chevron-left"></i> Sebelumnya
+                </button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="page-next" id="nextPageBtn">
+                    Selanjutnya <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+            <div class="sidebar-card" style="margin-bottom:20px;">
+                <h4><i class="fas fa-search"></i> Cari Artikel</h4>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Cari judul artikel...">
+                    <button onclick="doSearch()"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <div class="sidebar-card">
+                <h4><i class="fas fa-tags"></i> Kategori</h4>
+                <div class="category-list" id="categoryList">
+                    <div class="text-muted" style="font-size:0.85rem;">Memuat kategori...</div>
+                </div>
+            </div>
+            <div class="sidebar-card">
+        <h4><i class="fas fa-archive"></i> Arsip Artikel</h4>
+        <div class="category-list" id="archiveList">
+            <div class="text-muted">Memuat arsip...</div>
+        </div>
+    </div>
+         <div class="sidebar-card">
+        <h4><i class="fas fa-users"></i> Kontributor</h4>
+        <div id="authorList" style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="text-muted">Memuat penulis...</div>
+        </div>
+    </div>
+</aside>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <img src="assets/logo.png" alt="Logo" height="35" style="filter:brightness(0) invert(1);margin-bottom:14px;">
+                <p>Jl. Brigjen Katamso, Kedungrejo,<br>Waru, Sidoarjo 61256</p>
+                <div class="social-icons" style="margin-top:16px;">
+                    <a href="https://www.facebook.com/lazisnu.kedungrejo/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/upzisnukedungrejo_waroe target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Tentang Kami</h4>
+                <ul>
+                    <li><a href="#">Profil Lazisnu</a></li>
+                    <li><a href="#">Cara Berdonasi</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Program</h4>
+                <ul>
+                    <li><a href="programs.html">Zakat</a></li>
+                    <li><a href="programs.html">Wakaf</a></li>
+                    <li><a href="programs.html">Qurban</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Kontak</h4>
+                <ul>
+                    <li><a href="https://maps.app.goo.gl/uLtML1B3FoEwDnuq8">Kedungrejo, Waru</a></li>
+                    <li><a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;">+62 858-5049-4713</a></li>
+                    <li><a href="mailto:upzisnu.kedungrejos@gmail.com">upzisnu.kedungrejos@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <footer class="footer">
+    <div class="copyright">
+        © 2021 - <span id="tahun-sekarang"></span> NU-Care Lazisnu Kedungrejo | Designed by 
+        <a href="https://syamsdigital.my.id" target="_blank" style="text-decoration: none; color: inherit;">Syams Digital</a>
+    </div>
+</footer>
+
+<script>
+    // Mengambil tahun saat ini secara otomatis
+    document.getElementById("tahun-sekarang").innerHTML = new Date().getFullYear();
+</script>
+
+<script src="js/main.js"></script>
+<script src="js/berita.js"></script>
+</body>
+</html>

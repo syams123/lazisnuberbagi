@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Dashboard Admin - Lazisnu Kedungrejo</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="css/admin-dashboard.css">
+</head>
+<body class="admin-wrap">
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<div class="dashboard-header">
+  <div class="container">
+    <div class="logo">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="Logo Lazisnu">
+      </a>
+    </div>
+    <div class="header-right">
+      <span class="admin-name" id="adminName"></span>
+      <button id="darkModeToggle" class="dark-toggle" title="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="btn-danger btn-sm" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     KONTEN UTAMA
+════════════════════════════════════════════ -->
+<div class="container" style="padding-bottom:60px;">
+
+  <!-- Statistik -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-hand-holding-heart"></i></div>
+      <div class="stat-number" id="statTotalDonasi">Rp 0</div>
+      <div class="stat-label">Total Donasi Terkumpul</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-bullhorn"></i></div>
+      <div class="stat-number" id="statCampaignAktif">0</div>
+      <div class="stat-label">Campaign Aktif</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-users"></i></div>
+      <div class="stat-number" id="statTotalDonatur">0</div>
+      <div class="stat-label">Total Donatur</div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="admin-toolbar">
+    <div class="toolbar-left">
+      <button class="btn-primary" onclick="openAddModal()">
+        <i class="fas fa-plus"></i> Tambah Campaign
+      </button>
+      <button class="btn-refresh" id="btnRefresh" onclick="refreshAllData()">
+        <i class="fas fa-sync-alt"></i> Refresh Data
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabel Campaign -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Gambar</th>
+          <th>Judul</th>
+          <th>Target</th>
+          <th>Terkumpul</th>
+          <th>Deadline</th>
+          <th>Kategori</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="campaignTableBody">
+        <tr>
+          <td colspan="9" class="text-center" style="padding:40px;">
+            <i class="fas fa-spinner fa-spin" style="font-size:1.4rem;color:var(--primary);"></i>
+            Memuat data...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /.container -->
+
+<!-- ═══════════════════════════════════════════
+     MODAL — TAMBAH / EDIT CAMPAIGN
+════════════════════════════════════════════ -->
+<div class="modal" id="campaignModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalCampaignTitle">Tambah Campaign</h3>
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+    </div>
+
+    <form id="campaignForm" autocomplete="off">
+      <input type="hidden" id="campaignId">
+
+      <div class="form-group">
+        <label for="title">Judul Campaign <span style="color:var(--danger);">*</span></label>
+        <input type="text" id="title" class="form-control"
+               placeholder="Contoh: Donasi untuk Yatim Piatu" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Deskripsi Program</label>
+        <textarea id="description" class="form-control" rows="3"
+                  placeholder="Jelaskan tujuan program donasi ini..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="target">Target Donasi (Rp) <span style="color:var(--danger);">*</span></label>
+        <input type="number" id="target" class="form-control"
+               placeholder="0 untuk target unlimited" min="0" required>
+      </div>
+
+      <div class="form-group">
+        <label for="deadline">Tanggal Berakhir <span style="color:var(--danger);">*</span></label>
+        <input type="date" id="deadline" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Lokasi</label>
+        <input type="text" id="location" class="form-control"
+               placeholder="Contoh: Kedungrejo, Waru, Sidoarjo">
+      </div>
+
+      <div class="form-group">
+        <label for="maps_link">Link Google Maps <small style="color:var(--text-muted);">(opsional)</small></label>
+        <input type="url" id="maps_link" class="form-control"
+               placeholder="https://maps.google.com/...">
+      </div>
+
+      <div class="form-group">
+        <label for="category">Kategori Program</label>
+        <select id="category" class="form-control">
+          <option value="">Memuat kategori...</option>
+        </select>
+        <button type="button" class="btn-add-cat" onclick="openAddCategoryModal()">
+          <i class="fas fa-plus-circle"></i> Tambah Kategori Baru
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label>Gambar Campaign</label>
+        <div class="image-upload-area" onclick="document.getElementById('imageFile').click()">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Klik untuk upload gambar</p>
+          <small>Format: JPG, PNG (Max 2MB)</small>
+        </div>
+        <input type="file" id="imageFile" accept="image/*"
+               style="display:none;" onchange="previewImage(this)">
+        <div class="image-preview" id="imagePreview"></div>
+        <input type="hidden" id="image_url">
+      </div>
+
+      <button type="submit" class="btn-primary w-100" style="margin-top:6px;justify-content:center;">
+        <i class="fas fa-save"></i> Simpan Campaign
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MODAL — TAMBAH KATEGORI
+════════════════════════════════════════════ -->
+<div class="modal modal-sm" id="categoryModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3><i class="fas fa-tags"></i> Tambah Kategori</h3>
+      <span class="modal-close" onclick="closeCategoryModal()">&times;</span>
+    </div>
+    <div class="form-group">
+      <label for="newCategory">Nama Kategori</label>
+      <input type="text" id="newCategory" class="form-control"
+             placeholder="Contoh: Ekonomi, Sosial, Dakwah">
+    </div>
+    <button class="btn-primary w-100" style="justify-content:center;"
+            onclick="addNewCategory()">
+      <i class="fas fa-plus"></i> Tambah
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+     Urutan wajib: main.js dulu, baru admin-dashboard.js
+════════════════════════════════════════════ -->
+<script src="js/main.js"></script>
+<script src="js/admin-dashboard.js"></script>
+
+</body>
+</html>

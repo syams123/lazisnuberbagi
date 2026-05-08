@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Lazisnu Kedungrejo - Beranda</title>
+    <meta name="description" content="NU-Care Lazisnu Kedungrejo - Platform donasi zakat, infak, sedekah, dan qurban di Waru, Sidoarjo.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header>
+    <div class="container">
+        <div class="logo"><a href="index.html"><img src="assets/logo.png" alt="Logo Lazisnu"></a></div>
+        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="index.html" class="active">Beranda</a></li>
+                <li><a href="tentang.html">Tentang Kami</a></li>
+		<li><a href="programs.html">Program Donasi</a></li>
+                <li><a href="artikel.html">Artikel</a></li>
+                <li class="dropdown" id="loginDropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Masuk <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="login.html"><i class="fas fa-hand-holding-heart"></i> <span>Sebagai Donatur</span></a>
+                        <a href="penulis-login.html"><i class="fas fa-pen-fancy"></i> <span>Sebagai Penulis</span></a>
+                        <a href="admin-login.html"><i class="fas fa-shield-alt"></i> <span>Sebagai Admin</span></a>
+                    </div>
+                </li>
+                <li><button id="darkModeToggle" class="dark-toggle"><i class="fas fa-moon"></i></button></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ========== HERO SLIDESHOW ========== -->
+<section class="hero">
+    <div class="hero-slideshow" id="heroSlideshow">
+        <div class="hero-slide active" style="background-image:url('https://lazisnuberbagi.com/wp-content/uploads/2024/02/santunan-yatim-dan-khitan-2.jpg');"></div>
+        <div class="hero-slide" style="background-image:url('https://lazisnuberbagi.com/wp-content/uploads/2024/02/santunan-2.jpeg');"></div>
+        <div class="hero-slide" style="background-image:url('https://lazisnuberbagi.com/wp-content/uploads/2021/08/santunan-1.jpg');"></div>
+        <div class="hero-slide" style="background-image:url('https://lazisnuberbagi.com/wp-content/uploads/2024/02/santunan-kematian-1-e1630883492649.jpeg');"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-badge">NU-CARE LAZISNU KEDUNGREJO</div>
+            <h1>Bangkit Bersama <span>Meraih Asa</span></h1>
+            <p>Selamat datang di Website resmi NU-Care Upzis Lazisnu Ranting Kedungrejo, Waru Sidoarjo.</p>
+            <a href="programs.html" class="btn-primary btn-lg">
+                <i class="fas fa-hand-holding-heart"></i> Mulai Berdonasi
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== STATS CARD ========== -->
+<div class="container">
+    <div class="stats-wrapper" id="statsWrapper">
+        <div class="stats-card">
+            <div class="stats-inner">
+                <div class="stat-item">
+                    <div class="stat-number"><span id="statTotalProgram">0</span></div>
+                    <div class="stat-label">Total Program</div>
+                    <div class="stat-sub">Program Donasi</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number"><span id="statDonasiAktif">0</span></div>
+                    <div class="stat-label">Donasi Aktif</div>
+                    <div class="stat-sub">Sedang Berjalan</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Rp&nbsp;<span id="statJumlahDonasi">0</span></div>
+                    <div class="stat-label">Terkumpul</div>
+                    <div class="stat-sub">Total Dana</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== QUOTES ULAMA NU - CAROUSEL ========== -->
+
+    <div class="container">
+        
+        <div class="quotes-carousel">
+            <div class="quotes-slide active">
+                <div class="quotes-icon"><i class="fas fa-quote-right"></i></div>
+                <p class="quotes-text">"Sebaik-baik manusia adalah yang paling bermanfaat bagi orang lain."</p>
+                <p class="quotes-author">- KH. Hasyim Asy'ari</p>
+                <p class="quotes-title">Pendiri Nahdlatul Ulama</p>
+            </div>
+            <div class="quotes-slide">
+                <div class="quotes-icon"><i class="fas fa-quote-right"></i></div>
+                <p class="quotes-text">"Janganlah kamu menjadi manusia yang mudah putus asa. Selalu ada jalan keluar bagi setiap kesulitan."</p>
+                <p class="quotes-author">- KH. Abdurrahman Wahid (Gus Dur)</p>
+                <p class="quotes-title">Presiden RI ke-4</p>
+            </div>
+            <div class="quotes-slide">
+                <div class="quotes-icon"><i class="fas fa-quote-right"></i></div>
+                <p class="quotes-text">"Ilmu tanpa amal bagaikan pohon tak berbuah. Amal tanpa ilmu bagaikan rumah tanpa pondasi."</p>
+                <p class="quotes-author">- KH. Wahab Hasbullah</p>
+                <p class="quotes-title">Tokoh pendiri NU</p>
+            </div>
+            <div class="quotes-slide">
+                <div class="quotes-icon"><i class="fas fa-quote-right"></i></div>
+                <p class="quotes-text">"Berbagilah sebelum kaya. Karena harta yang kita keluarkan untuk kebaikan akan kembali berlipat ganda."</p>
+                <p class="quotes-author">- KH. Bisri Mustofa</p>
+                <p class="quotes-title">Pengasuh Pondok Raudlatuth Thalibin</p>
+            </div>
+            <div class="quotes-slide">
+                <div class="quotes-icon"><i class="fas fa-quote-right"></i></div>
+                <p class="quotes-text">"Sesungguhnya sedekah itu dapat memadamkan dosa sebagaimana air memadamkan api."</p>
+                <p class="quotes-author">- Hadits Riwayat Tirmidzi</p>
+                <p class="quotes-title">Dengan sanad dari KH. Sahal Mahfudz</p>
+            </div>
+            <div class="quotes-slide">
+                <div class="quotes-icon"><i class="fas fa-quote-right"></i></div>
+                <p class="quotes-text">"Jangan tanyakan berapa banyak yang kita berikan. Tanyakan berapa banyak cinta yang kita tanam dalam setiap sedekah."</p>
+                <p class="quotes-author">- KH. Mustofa Bisri (Gus Mus)</p>
+                <p class="quotes-title">Rais Aam PBNU</p>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <button class="quotes-nav quotes-prev" id="quotesPrev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="quotes-nav quotes-next" id="quotesNext">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <!-- Dots Indicator -->
+            <div class="quotes-dots" id="quotesDots"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Quotes Carousel Section */
+    .quotes-section {
+        background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-white) 100%);
+        padding: 60px 0;
+        margin: 40px 0;
+    }
+    body.dark-mode .quotes-section {
+        background: linear-gradient(135deg, rgba(6,125,125,0.15) 0%, var(--bg-card) 100%);
+    }
+    
+    .quotes-carousel {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        background: var(--bg-white);
+        border-radius: var(--radius-lg);
+        padding: 40px 50px;
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+        border: 1px solid var(--border);
+    }
+    body.dark-mode .quotes-carousel {
+        background: var(--bg-card);
+    }
+    
+    .quotes-slide {
+        display: none;
+        animation: fadeEffect 0.5s ease;
+    }
+    .quotes-slide.active {
+        display: block;
+    }
+    @keyframes fadeEffect {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .quotes-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+        opacity: 0.6;
+    }
+    
+    .quotes-text {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        color: var(--text-dark);
+        margin-bottom: 20px;
+        font-style: italic;
+        font-weight: 500;
+    }
+    body.dark-mode .quotes-text {
+        color: #e0e0e0;
+    }
+    
+    .quotes-author {
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 5px;
+        font-size: 1rem;
+    }
+    
+    .quotes-title {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+    
+    /* Navigation Buttons */
+    .quotes-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: var(--primary);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1rem;
+    }
+    .quotes-nav:hover {
+        background: var(--primary-dark);
+        transform: translateY(-50%) scale(1.05);
+    }
+    .quotes-prev {
+        left: -15px;
+    }
+    .quotes-next {
+        right: -15px;
+    }
+    
+    /* Dots Indicator */
+    .quotes-dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 25px;
+    }
+    .quotes-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--border);
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    .quotes-dot.active {
+        background: var(--primary);
+        width: 25px;
+        border-radius: 10px;
+    }
+    
+    @media (max-width: 768px) {
+        .quotes-carousel {
+            padding: 30px 25px;
+        }
+        .quotes-text {
+            font-size: 1rem;
+        }
+        .quotes-nav {
+            width: 32px;
+            height: 32px;
+            font-size: 0.8rem;
+        }
+        .quotes-prev {
+            left: -8px;
+        }
+        .quotes-next {
+            right: -8px;
+        }
+    }
+</style>
+
+<script>
+    // Quotes Carousel JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.quotes-slide');
+        const prevBtn = document.getElementById('quotesPrev');
+        const nextBtn = document.getElementById('quotesNext');
+        const dotsContainer = document.getElementById('quotesDots');
+        let currentIndex = 0;
+        let autoSlideInterval;
+        
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('quotes-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+        
+        const dots = document.querySelectorAll('.quotes-dot');
+        
+        function goToSlide(index) {
+            slides[currentIndex].classList.remove('active');
+            dots[currentIndex].classList.remove('active');
+            currentIndex = (index + slides.length) % slides.length;
+            slides[currentIndex].classList.add('active');
+            dots[currentIndex].classList.add('active');
+            resetAutoSlide();
+        }
+        
+        function nextSlide() {
+            goToSlide(currentIndex + 1);
+        }
+        
+        function prevSlide() {
+            goToSlide(currentIndex - 1);
+        }
+        
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 5000);
+        }
+        
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+        
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        
+        startAutoSlide();
+        
+        // Pause auto slide on hover
+        const carousel = document.querySelector('.quotes-carousel');
+        carousel.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+        carousel.addEventListener('mouseleave', startAutoSlide);
+    });
+</script>
+<br>
+
+<!-- ========== PROGRAM UNGGULAN ========== -->
+<div class="container">
+    <h2 class="text-center">Sudah berbagi hari ini?</h2>
+    <p class="text-center text-muted">Mari berbagi melalui program donasi kami</p>
+    <div class="campaign-grid" id="campaignGrid">
+        <div class="loading-indicator"><i class="fas fa-spinner fa-spin"></i>Memuat program...</div>
+    </div>
+    <div class="text-center" style="margin-bottom:40px;">
+        <a href="programs.html" class="btn-outline">Lihat Semua Program <i class="fas fa-arrow-right"></i></a>
+    </div>
+</div>
+
+<!-- ========== TUTORIAL BERDONASI ========== -->
+<section class="tutorial-section">
+    <div class="container">
+        <h2 class="text-center">Mudahnya Berdonasi</h2>
+        <p class="text-center stat-label">Cukup 3 langkah mudah, donasi Anda sampai ke yang membutuhkan</p>
+    </div>
+    <div class="tutorial-grid">
+        <div class="tutorial-card" data-delay="1">
+            <div class="tutorial-number">01</div>
+            <div class="tutorial-image-wrapper">
+                <img class="tutorial-image" src="https://lazisnuberbagi.com/wp-content/uploads/2021/08/2.jpg" alt="Pilih Program">
+            </div>
+            <div class="tutorial-content">
+                <h3 class="tutorial-title"><i class="fas fa-hand-pointer"></i> Pilih Program Donasi</h3>
+                <p class="tutorial-description">Pilih program sesuai niat Anda: Zakat, Infak, Sedekah, Qurban, atau donasi lainnya.</p>
+                <span class="tutorial-badge">Step 01</span>
+            </div>
+        </div>
+        <div class="tutorial-card" data-delay="2">
+            <div class="tutorial-number">02</div>
+            <div class="tutorial-image-wrapper">
+                <img class="tutorial-image" src="https://lazisnuberbagi.com/wp-content/uploads/2021/08/9.jpg" alt="Kirim Donasi">
+            </div>
+            <div class="tutorial-content">
+                <h3 class="tutorial-title"><i class="fas fa-paper-plane"></i> Kirim Donasimu</h3>
+                <p class="tutorial-description">Transfer ke rekening Lazisnu Kedungrejo atau hubungi admin kami secara langsung.</p>
+                <span class="tutorial-badge">Step 02</span>
+            </div>
+        </div>
+        <div class="tutorial-card" data-delay="3">
+            <div class="tutorial-number">03</div>
+            <div class="tutorial-image-wrapper">
+                <img class="tutorial-image" src="https://lazisnuberbagi.com/wp-content/uploads/2021/08/8.jpg" alt="Bagikan">
+            </div>
+            <div class="tutorial-content">
+                <h3 class="tutorial-title"><i class="fas fa-share-alt"></i> Bagikan ke Sekitarmu</h3>
+                <p class="tutorial-description">Ajak kerabat, teman, dan sahabat untuk turut berpartisipasi dalam kebaikan.</p>
+                <span class="tutorial-badge">Step 03</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BERITA TERBARU ========== -->
+<section class="berita-section">
+    <div class="container">
+        <h2 class="text-center">Artikel</h2>
+	<p class="text-center">Kumpulan Artikel Mencakup Berita, Kisah dan lain sebagainya</p>
+        <div class="berita-grid" id="beritaGrid">
+            <div class="loading-indicator"><i class="fas fa-spinner fa-spin"></i>Memuat artikel...</div>
+        </div>
+        <div class="berita-btn-wrapper">
+            <a href="artikel.html" class="btn-lihat-semua">Lihat Semua Artikel <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <img src="assets/logo.png" alt="Logo" height="35" style="filter:brightness(0) invert(1);margin-bottom:14px;">
+                <p>Jl. Brigjen Katamso, Kedungrejo,<br>Waru, Sidoarjo 61256</p>
+                <div class="social-icons" style="margin-top:16px;">
+                    <a href="https://www.facebook.com/lazisnu.kedungrejo/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/upzisnukedungrejo_waroe target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Tentang Kami</h4>
+                <ul>
+                    <li><a href="#">Profil Lazisnu</a></li>
+                    <li><a href="#">Cara Berdonasi</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Program</h4>
+                <ul>
+                    <li><a href="programs.html">Zakat</a></li>
+                    <li><a href="programs.html">Wakaf</a></li>
+                    <li><a href="programs.html">Qurban</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Kontak</h4>
+                <ul>
+                    <li><a href="https://maps.app.goo.gl/uLtML1B3FoEwDnuq8">Kedungrejo, Waru</a></li>
+                    <li><a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;">+62 858-5049-4713</a></li>
+                    <li><a href="mailto:upzisnu.kedungrejos@gmail.com">upzisnu.kedungrejos@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <footer class="footer">
+    <div class="copyright">
+        © 2021 - <span id="tahun-sekarang"></span> NU-Care Lazisnu Kedungrejo | Designed by 
+        <a href="https://syamsdigital.my.id" target="_blank" style="text-decoration: none; color: inherit;">Syams Digital</a>
+    </div>
+</footer>
+
+<script>
+    // Mengambil tahun saat ini secara otomatis
+    document.getElementById("tahun-sekarang").innerHTML = new Date().getFullYear();
+</script>
+
+<script src="js/main.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

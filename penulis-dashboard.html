@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Dashboard Penulis - Lazisnu Kedungrejo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ========== HEADER DASHBOARD ========== -->
+<header class="dashboard-header">
+    <div class="container">
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/logo.png" alt="Logo Lazisnu">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <!-- Avatar kecil -->
+            <img id="headerAvatar"
+                 src="assets/default-avatar.png"
+                 alt="Avatar"
+                 class="avatar-sm"
+                 onerror="this.src='https://placehold.co/36x36/067d7d/fff?text=P'">
+
+            <!-- Dropdown nama user -->
+            <div class="dropdown-user" id="dropdownUser">
+                <button class="dropdown-user-btn" id="dropdownUserBtn">
+                    <span id="penulisNameDisplay">Penulis</span>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </button>
+                <div class="dropdown-user-menu" id="dropdownUserMenu">
+                    <a href="index.html"><i class="fas fa-home"></i> Ke Beranda</a>
+                    <a href="javascript:void(0)" onclick="logoutPenulis()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ========== BODY DASHBOARD ========== -->
+<div class="container dashboard-body">
+
+    <!-- ===== KARTU PROFIL PENULIS ===== -->
+    <section class="profile-section">
+        <div class="profile-card">
+            <!-- Konten profil diisi JS -->
+            <div id="profileContent">
+                <div class="loading-indicator" style="padding:40px 0;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    Memuat profil...
+                </div>
+            </div>
+            <button class="btn-edit-profile" onclick="openEditModal()">
+                <i class="fas fa-user-edit"></i> Edit Profil
+            </button>
+        </div>
+    </section>
+
+    <!-- ===== STATISTIK ===== -->
+    <div class="stats-grid-penulis">
+        <div class="stat-card-penulis">
+            <div class="stat-num-penulis" id="statTotal">0</div>
+            <div class="stat-lbl-penulis">Total Artikel</div>
+        </div>
+        <div class="stat-card-penulis">
+            <div class="stat-num-penulis" id="statPublished">0</div>
+            <div class="stat-lbl-penulis">Dipublikasi</div>
+        </div>
+        <div class="stat-card-penulis">
+            <div class="stat-num-penulis" id="statDraft">0</div>
+            <div class="stat-lbl-penulis">Draft</div>
+        </div>
+        <div class="stat-card-penulis">
+            <div class="stat-num-penulis" id="statViews">0</div>
+            <div class="stat-lbl-penulis">Total Views</div>
+        </div>
+    </div>
+
+    <!-- ===== TOOLBAR ===== -->
+    <div class="dashboard-toolbar">
+        <a href="penulis-editor.html" class="btn-primary">
+            <i class="fas fa-plus"></i> Tulis Artikel Baru
+        </a>
+        <div class="filter-group" id="filterGroup">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="published">Published</button>
+            <button class="filter-btn" data-filter="draft">Draft</button>
+        </div>
+    </div>
+
+    <!-- ===== TABEL ARTIKEL ===== -->
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Judul</th>
+                    <th>Kategori</th>
+                    <th>Status</th>
+                    <th>Tanggal</th>
+                    <th>Views</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="articlesTableBody">
+                <tr>
+                    <td colspan="7" class="text-center" style="padding:40px;">
+                        <i class="fas fa-spinner fa-spin" style="color:var(--primary);font-size:1.5rem;"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div><!-- /container -->
+
+<!-- ========== MODAL EDIT PROFIL ========== -->
+<div class="modal modal-profile" id="editProfileModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-user-edit" style="color:var(--primary);margin-right:8px;"></i>Edit Profil Penulis</h3>
+            <button class="modal-close" onclick="closeEditModal()">&times;</button>
+        </div>
+
+        <div class="alert alert-danger"  id="modalError"></div>
+        <div class="alert alert-success" id="modalSuccess"></div>
+
+        <form id="profileForm">
+            <!-- Upload Foto -->
+            <div class="form-group">
+                <label>Foto Profil</label>
+                <div class="upload-area-profile" onclick="document.getElementById('fotoFile').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Klik untuk upload foto</p>
+                    <small>JPG / PNG (Max 5MB)</small>
+                </div>
+                <input type="file" id="fotoFile" accept="image/*" style="display:none;">
+                <div id="fotoPreview"></div>
+                <input type="hidden" id="foto_profil">
+                <div id="uploadStatus" style="font-size:0.8rem;color:var(--primary);margin-top:6px;display:none;">
+                    <i class="fas fa-spinner fa-spin"></i> Mengupload foto...
+                </div>
+            </div>
+
+            <!-- Nama Lengkap -->
+            <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="profileName" class="form-control" placeholder="Nama lengkap Anda">
+            </div>
+
+            <!-- Tanggal Lahir -->
+            <div class="form-group">
+                <label>Tanggal Lahir</label>
+                <input type="date" id="tanggal_lahir" class="form-control">
+            </div>
+
+            <!-- Bio -->
+            <div class="form-group">
+                <label>Bio / Deskripsi Singkat</label>
+                <textarea id="bio" class="form-control" rows="3"
+                          placeholder="Ceritakan sedikit tentang diri Anda..."></textarea>
+            </div>
+
+            <!-- Alamat -->
+            <div class="form-group">
+                <label>Alamat / Kota</label>
+                <textarea id="alamat" class="form-control" rows="2"
+                          placeholder="Kota atau alamat Anda"></textarea>
+            </div>
+
+            <!-- Sosial Media (2 kolom) -->
+            <div class="form-group">
+                <label><i class="fas fa-share-alt"></i> Sosial Media</label>
+                <div class="social-inputs-grid">
+                    <div>
+                        <label style="font-size:0.8rem;font-weight:500;margin-bottom:4px;display:block;">
+                            <i class="fab fa-instagram" style="color:#E4405F;"></i> Instagram
+                        </label>
+                        <input type="url" id="ig" class="form-control"
+                               placeholder="https://instagram.com/...">
+                    </div>
+                    <div>
+                        <label style="font-size:0.8rem;font-weight:500;margin-bottom:4px;display:block;">
+                            <i class="fa-brands fa-x-twitter"></i> X / Twitter
+                        </label>
+                        <input type="url" id="x_twitter" class="form-control"
+                               placeholder="https://twitter.com/...">
+                    </div>
+                    <div>
+                        <label style="font-size:0.8rem;font-weight:500;margin-bottom:4px;display:block;">
+                            <i class="fab fa-facebook" style="color:#1877F2;"></i> Facebook
+                        </label>
+                        <input type="url" id="facebook" class="form-control"
+                               placeholder="https://facebook.com/...">
+                    </div>
+                    <div>
+                        <label style="font-size:0.8rem;font-weight:500;margin-bottom:4px;display:block;">
+                            <i class="fab fa-tiktok"></i> TikTok
+                        </label>
+                        <input type="url" id="tiktok" class="form-control"
+                               placeholder="https://tiktok.com/@...">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary w-100" id="btnSaveProfile" style="margin-top:8px;">
+                <i class="fas fa-save"></i> Simpan Profil
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/penulis-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - Lazisnu Kedungrejo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #067d7d;
+            --primary-dark: #055c5c;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #067d7d 0%, #043a3a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .login-card h2 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .login-card p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(6,125,125,0.2);
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+        .btn-login {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        .btn-login:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .error-msg {
+            background: #fee;
+            color: #ef4444;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            display: none;
+        }
+        .loading {
+            display: none;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <img src="assets/logo.png" alt="Logo" height="30" style="margin-bottom: 20px;">
+        <h2>Login Sebagai Admin</h2>
+        <p>Masukkan kredensial administrator</p>
+        
+        <div class="error-msg" id="errorMsg"></div>
+        
+        <div class="input-group">
+            <div class="input-wrapper">
+                <input type="text" id="adminEmail" placeholder="Email Admin" autocomplete="off">
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <div class="input-wrapper">
+                <input type="password" id="adminPassword" placeholder="Password">
+                <button type="button" class="toggle-password" onclick="togglePassword('adminPassword', this)">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+            </div>
+        </div>
+        
+        <button class="btn-login" onclick="adminLogin()">
+            <i class="fas fa-shield-alt"></i> Masuk
+        </button>
+        
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner fa-spin"></i> Memeriksa kredensial...
+        </div>
+        
+        <a href="login.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Kembali ke Login Donatur
+        </a>
+    </div>
+
+    <script>
+        // ========== URL APPS SCRIPT ANDA ==========
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbzLZjVSM20ZSlFW4xD-TMLKezjLhCtob61oDZ123eDkNH9msGE0QQLZqU-mywkXdQB_/exec';
+        
+        function togglePassword(fieldId, button) {
+            const input = document.getElementById(fieldId);
+            const icon = button.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        }
+        
+        async function adminLogin() {
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const loading = document.getElementById('loading');
+            const loginBtn = document.querySelector('.btn-login');
+            
+            if (!email || !password) {
+                errorMsg.style.display = 'block';
+                errorMsg.innerText = 'Email dan password harus diisi';
+                return;
+            }
+            
+            errorMsg.style.display = 'none';
+            loading.style.display = 'block';
+            loginBtn.disabled = true;
+            
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Tambahkan ini untuk mengatasi CORS sementara
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'adminLogin',
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                // Karena mode 'no-cors', response tidak bisa dibaca langsung
+                // Gunakan mode demo fallback jika gagal
+                console.log('Response:', response);
+                
+                // Fallback: coba dengan mode normal dulu
+                const response2 = await fetch(GAS_URL + '?action=adminLogin&email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password));
+                const data = await response2.json();
+                
+                if (data.status === 'success') {
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    localStorage.setItem('adminName', data.name || 'Administrator');
+                    localStorage.setItem('adminEmail', email);
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    throw new Error('Login gagal');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // FALLBACK DEMO MODE - Jika koneksi ke server gagal
+                // Hapus komentar di bawah untuk testing sementara
+                /*
+                if (email === 'admin@lazisnu.com' && password === 'admin123') {
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    localStorage.setItem('adminName', 'Administrator');
+                    localStorage.setItem('adminEmail', email);
+                    window.location.href = 'admin-dashboard.html';
+                    return;
+                }
+                */
+                
+                errorMsg.style.display = 'block';
+                errorMsg.innerText = 'Gagal terhubung ke server. Pastikan Google Apps Script sudah dideploy dengan benar.';
+            } finally {
+                loading.style.display = 'none';
+                loginBtn.disabled = false;
+            }
+        }
+        
+        // Enter key submit
+        document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') adminLogin();
+        });
+    </script>
+</body>
+</html>

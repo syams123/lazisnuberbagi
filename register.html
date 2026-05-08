@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Donatur - Lazisnu Kedungrejo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #067d7d 0%, #043a3a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .auth-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            width: 100%;
+            max-width: 460px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+        .auth-card .logo-img { height: 40px; margin: 0 auto 20px; }
+        .auth-card h2 { color: var(--primary); margin-bottom: 6px; font-size: 1.4rem; }
+        .auth-card > p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 22px; }
+        .name-row { display: grid; grid-template-columns: 110px 1fr; gap: 10px; }
+        .auth-footer-links { margin-top: 16px; }
+        .auth-footer-links a { font-size: 0.83rem; color: var(--primary); display: block; }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <img class="logo-img" src="assets/logo.png" alt="Logo Lazisnu">
+        <h2>Daftar Donatur</h2>
+        <p>Buat akun untuk mulai berdonasi</p>
+
+        <div class="alert alert-danger"  id="alertError"></div>
+        <div class="alert alert-success" id="alertSuccess"></div>
+
+        <div class="form-group" style="text-align:left;">
+            <label>Nama Lengkap *</label>
+            <div class="name-row">
+                <select id="panggilan" class="form-control">
+                    <option value="Bpk">Bpk.</option>
+                    <option value="Ibu">Ibu.</option>
+                    <option value="Sdr">Sdr.</option>
+                    <option value="">—</option>
+                </select>
+                <input type="text" id="namaLengkap" class="form-control" placeholder="Nama lengkap">
+            </div>
+        </div>
+        <div class="form-group" style="text-align:left;">
+            <label>Email *</label>
+            <input type="email" id="regEmail" class="form-control" placeholder="email@anda.com">
+        </div>
+        <div class="form-group" style="text-align:left;">
+            <label>No. WhatsApp *</label>
+            <input type="tel" id="regPhone" class="form-control" placeholder="08123456789">
+        </div>
+        <div class="form-group" style="text-align:left;">
+            <label>Password *</label>
+            <div class="input-wrapper">
+                <input type="password" id="regPassword" class="form-control" placeholder="Minimal 8 karakter">
+                <button type="button" class="toggle-password" onclick="togglePassword('regPassword', this)">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="form-group" style="text-align:left;">
+            <label>Ulangi Password *</label>
+            <div class="input-wrapper">
+                <input type="password" id="regPassword2" class="form-control" placeholder="Ulangi password">
+                <button type="button" class="toggle-password" onclick="togglePassword('regPassword2', this)">
+                    <i class="fas fa-eye-slash"></i>
+                </button>
+            </div>
+        </div>
+
+        <button class="btn-primary w-100" onclick="registerDonatur()" id="regBtn">
+            <i class="fas fa-user-plus"></i> Daftar Sekarang
+        </button>
+
+        <div class="auth-footer-links" style="margin-top:16px;">
+            <a href="login.html"><i class="fas fa-sign-in-alt"></i> Sudah punya akun? Login</a>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>

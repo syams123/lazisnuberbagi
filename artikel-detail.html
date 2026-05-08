@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Detail Berita - Lazisnu Kedungrejo</title>
+    <meta name="description" content="Berita dan artikel terbaru dari Lazisnu Kedungrejo.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header>
+    <div class="container">
+        <div class="logo"><a href="index.html"><img src="assets/logo.png" alt="Logo Lazisnu"></a></div>
+        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="tentang.html">Tentang Kami</a></li>
+		<li><a href="programs.html">Program Donasi</a></li>
+                <li><a href="artikel.html" class="active">Artikel</a></li>
+                <li class="dropdown" id="loginDropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Masuk <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="login.html"><i class="fas fa-hand-holding-heart"></i> <span>Sebagai Donatur</span></a>
+                        <a href="penulis-login.html"><i class="fas fa-pen-fancy"></i> <span>Sebagai Penulis</span></a>
+                        <a href="admin-login.html"><i class="fas fa-shield-alt"></i> <span>Sebagai Admin</span></a>
+                    </div>
+                </li>
+                <li><button id="darkModeToggle" class="dark-toggle"><i class="fas fa-moon"></i></button></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ========== KONTEN UTAMA ========== -->
+<div class="container">
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Navigasi halaman">
+        <a href="index.html"><i class="fas fa-home"></i> Beranda</a>
+        <span class="sep">/</span>
+        <a href="artikel.html">Berita</a>
+        <span class="sep">/</span>
+        <span class="current" id="breadcrumbTitle">Memuat...</span>
+    </nav>
+
+    <!-- TOMBOL KEMBALI -->
+    <div style="margin-bottom: 18px;">
+        <a href="artikel.html" class="btn-outline btn-sm">
+            <i class="fas fa-arrow-left"></i> Kembali ke Berita
+        </a>
+    </div>
+
+    <!-- LAYOUT DUA KOLOM -->
+    <div class="detail-layout">
+
+        <!-- ===== KOLOM KIRI: ARTIKEL UTAMA ===== -->
+        <main id="articleMain">
+            <div class="article-card">
+                <div class="loading-indicator" style="padding: 80px 20px;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    Memuat artikel...
+                </div>
+            </div>
+        </main>
+
+        <!-- ===== KOLOM KANAN: SIDEBAR ===== -->
+        <aside class="detail-sidebar">
+
+            <!-- 1. Artikel Terkait -->
+            <div class="sidebar-card">
+                <h4><i class="fas fa-newspaper"></i> Artikel Terkait</h4>
+                <div class="related-list" id="relatedList">
+                    <div class="text-muted" style="font-size:0.83rem; padding: 8px 0;">
+                        <i class="fas fa-spinner fa-spin"></i> Memuat...
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Iklan 1 -->
+            <div class="sidebar-card iklan-wrap"
+                 onclick="window.open('https://wa.me/6285736120230','_blank')"
+                 title="Pasang iklan Anda di sini">
+                <div class="iklan-box">
+                    <span class="iklan-label">IKLAN</span>
+                    <i class="fas fa-bullhorn"></i>
+                    <p>Space Iklan 1</p>
+                    <small>Hubungi admin untuk pemasangan iklan</small>
+                </div>
+            </div>
+
+            <!-- 3. Iklan 2 -->
+            <div class="sidebar-card iklan-wrap"
+                 onclick="window.open('https://wa.me/6285736120230','_blank')"
+                 title="Pasang iklan Anda di sini">
+                <div class="iklan-box">
+                    <span class="iklan-label">IKLAN</span>
+                    <i class="fas fa-ad"></i>
+                    <p>Space Iklan 2</p>
+                    <small>Hubungi admin untuk pemasangan iklan</small>
+                </div>
+            </div>
+
+            <!-- 4. Author Card -->
+            <div class="sidebar-card" id="authorCard" style="display: none;">
+                <h4><i class="fas fa-user-edit"></i> Tentang Penulis</h4>
+                <div class="author-card-body">
+                    <img id="authorAvatar"
+                         src="assets/default-avatar.png"
+                         alt="Foto Penulis"
+                         class="author-avatar-img"
+                         onerror="this.src='https://placehold.co/78x78/067d7d/fff?text=P'">
+                    <p class="author-name" id="authorName">—</p>
+                    <p class="author-bio"  id="authorBio"></p>
+                    <div class="author-socials" id="authorSocials"></div>
+                </div>
+            </div>
+
+            <!-- 6. Newsletter -->
+            <div class="sidebar-card">
+                <h4><i class="fas fa-envelope"></i> Newsletter</h4>
+                <p class="newsletter-desc">
+                    Dapatkan update berita terbaru Lazisnu Kedungrejo langsung ke email Anda.
+                </p>
+                <input type="email"
+                       id="newsletterEmail"
+                       class="newsletter-input"
+                       placeholder="Masukkan email Anda...">
+                <button class="btn-primary w-100 btn-sm" id="btnNewsletter">
+                    <i class="fas fa-paper-plane"></i> Berlangganan
+                </button>
+                <div class="alert alert-success" id="newsletterSuccess" style="margin-top:10px;"></div>
+                <div class="alert alert-danger"  id="newsletterError"   style="margin-top:10px;"></div>
+            </div>
+
+        </aside>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <img src="assets/logo.png" alt="Logo" height="35" style="filter:brightness(0) invert(1);margin-bottom:14px;">
+                <p>Jl. Brigjen Katamso, Kedungrejo,<br>Waru, Sidoarjo 61256</p>
+                <div class="social-icons" style="margin-top:16px;">
+                    <a href="https://www.facebook.com/lazisnu.kedungrejo/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/upzisnukedungrejo_waroe target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Tentang Kami</h4>
+                <ul>
+                    <li><a href="#">Profil Lazisnu</a></li>
+                    <li><a href="#">Cara Berdonasi</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Program</h4>
+                <ul>
+                    <li><a href="programs.html">Zakat</a></li>
+                    <li><a href="programs.html">Wakaf</a></li>
+                    <li><a href="programs.html">Qurban</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Kontak</h4>
+                <ul>
+                    <li><a href="https://maps.app.goo.gl/uLtML1B3FoEwDnuq8">Kedungrejo, Waru</a></li>
+                    <li><a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;">+62 858-5049-4713</a></li>
+                    <li><a href="mailto:upzisnu.kedungrejos@gmail.com">upzisnu.kedungrejos@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <footer class="footer">
+    <div class="copyright">
+        © 2021 - <span id="tahun-sekarang"></span> NU-Care Lazisnu Kedungrejo | Designed by 
+        <a href="https://syamsdigital.my.id" target="_blank" style="text-decoration: none; color: inherit;">Syams Digital</a>
+    </div>
+</footer>
+
+<script>
+    // Mengambil tahun saat ini secara otomatis
+    document.getElementById("tahun-sekarang").innerHTML = new Date().getFullYear();
+</script>
+
+<!-- JS: Global dulu, lalu halaman ini -->
+<script src="js/main.js"></script>
+<script src="js/artikel-detail.js"></script>
+</body>
+</html>

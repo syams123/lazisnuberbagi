@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Donasi - Lazisnu Kedungrejo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .donasi-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 30px;
+            margin: 30px 0 60px;
+            align-items: start;
+        }
+        .donation-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        .campaign-featured-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+        }
+        .campaign-detail-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; }
+        .campaign-detail-meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 18px; }
+        .campaign-detail-meta span { display: flex; align-items: center; gap: 5px; }
+        .campaign-desc { font-size: 0.92rem; line-height: 1.75; color: var(--text-dark); }
+
+        /* Nominal tombol cepat */
+        .nominal-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .nominal-btn {
+            padding: 10px 6px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-white);
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .nominal-btn:hover, .nominal-btn.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Metode Pembayaran */
+        .payment-method {
+            margin: 20px 0;
+        }
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .payment-option.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        .payment-option input {
+            margin: 0;
+            width: auto;
+        }
+        .payment-option .min-badge {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+        .payment-option.active .min-badge {
+            color: var(--primary);
+        }
+
+        /* Info bank */
+        .bank-info {
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+        .bank-info h4 { font-size: 0.95rem; color: var(--primary-dark); margin-bottom: 10px; }
+        .bank-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(6,125,125,0.15);
+        }
+        .bank-row:last-child { border-bottom: none; }
+        .bank-row strong { font-weight: 700; color: var(--primary-dark); }
+        .copy-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .copy-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Error nominal */
+        .nominal-error {
+            display: none;
+            color: var(--danger);
+            font-size: 0.75rem;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Manual Info */
+        .manual-info {
+            display: none;
+            background: var(--primary-light);
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            margin: 15px 0;
+            font-size: 0.85rem;
+        }
+
+        .form-card { position: sticky; top: 80px; }
+
+        @media (max-width: 900px) {
+            .donasi-layout { grid-template-columns: 1fr; }
+            .form-card { position: static; }
+            .nominal-buttons { grid-template-columns: repeat(2, 1fr); }
+        }
+	@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo"><a href="index.html"><img src="assets/logo.png" alt="Logo Lazisnu"></a></div>
+        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="tentang.html">Tentang Kami</a></li>
+		<li><a href="programs.html" class="active">Program Donasi</a></li>
+                <li><a href="berita.html">Artikel</a></li>
+                <li class="dropdown" id="loginDropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Masuk <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="login.html"><i class="fas fa-hand-holding-heart"></i> <span>Sebagai Donatur</span></a>
+                        <a href="penulis-login.html"><i class="fas fa-pen-fancy"></i> <span>Sebagai Penulis</span></a>
+                        <a href="admin-login.html"><i class="fas fa-shield-alt"></i> <span>Sebagai Admin</span></a>
+                    </div>
+                </li>
+                <li><button id="darkModeToggle" class="dark-toggle"><i class="fas fa-moon"></i></button></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <div style="padding:20px 0 0;">
+        <a href="programs.html" class="btn-outline btn-sm"><i class="fas fa-arrow-left"></i> Kembali ke Program</a>
+    </div>
+
+    <div class="donasi-layout">
+        <!-- Detail Campaign -->
+        <div id="campaignDetail">
+            <div class="loading-indicator"><i class="fas fa-spinner fa-spin"></i> Memuat program...</div>
+        </div>
+
+        <!-- Form Donasi -->
+        <div class="form-card">
+            <div class="donation-card">
+                <h3 style="margin-bottom:18px;font-size:1.1rem;">
+                    <i class="fas fa-hand-holding-heart" style="color:var(--primary);margin-right:6px;"></i> 
+                    Form Donasi
+                </h3>
+
+                <div class="alert alert-danger" id="alertError"></div>
+                <div class="alert alert-success" id="alertSuccess"></div>
+
+                <div class="form-group">
+                    <label>Nama Donatur *</label>
+                    <input type="text" id="donaturName" class="form-control" placeholder="Nama lengkap Anda">
+                </div>
+                
+                <div class="form-group">
+                    <label>No. WhatsApp *</label>
+                    <input type="tel" id="donaturPhone" class="form-control" placeholder="Contoh: 08123456789">
+                </div>
+                
+                <div class="form-group">
+                    <label>Pilih Nominal</label>
+                    <div class="nominal-buttons" id="nominalButtons">
+                        <button type="button"
+class="nominal-btn" data-val="10000">Rp 10.000</button>
+                        <button type="button" 
+class="nominal-btn" data-val="25000">Rp 25.000</button>
+                        <button type="button" class="nominal-btn" data-val="50000">Rp 50.000</button>
+                        <button type="button" class="nominal-btn" data-val="100000">Rp 100.000</button>
+                        <button type="button" class="nominal-btn" data-val="250000">Rp 250.000</button>
+                        <button type="button" class="nominal-btn" data-val="500000">Rp 500.000</button>
+                        <button type="button" class="nominal-btn" data-val="other">Lainnya</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nominal Donasi (Rp) *</label>
+                    <input type="number" id="donationAmount" class="form-control" placeholder="Masukkan nominal" min="1000">
+                    <div id="nominalError" class="nominal-error"></div>
+                </div>
+                
+                <!-- Metode Pembayaran -->
+                <div class="payment-method">
+                    <label style="font-weight: 600; display: block; margin-bottom: 10px;">
+                        <i class="fas fa-credit-card"></i> Metode Pembayaran
+                    </label>
+                    <div class="payment-option active" data-method="midtrans">
+                        <input type="radio" name="paymentMethod" value="midtrans" checked> 
+                        <strong>💳 Bayar Online</strong>
+                        <span class="min-badge">Minimal Rp 10.000</span>
+                    </div>
+                    <div class="payment-option" data-method="manual">
+                        <input type="radio" name="paymentMethod" value="manual"> 
+                        <strong>🏦 Transfer Manual</strong>
+                        <span class="min-badge">Minimal Rp 1.000</span>
+                    </div>
+                </div>
+                
+                <!-- Informasi Transfer Manual (hidden by default) -->
+                <div id="manualInfo" class="manual-info">
+                    <i class="fas fa-info-circle"></i> Silakan transfer ke:<br>
+                    <strong>BSI 7150048723</strong> a.n <strong>UPZISNU KEDUNGREJO</strong><br>
+		    <strong>BCA 0182317495</strong> a.n <strong>Yay Lembaga Amil Zakat</strong><br>
+		    <strong>BCA 0182317487</strong> a.n <strong>Yay Lembaga Amil Zakat Infaq</strong><br>
+                    <small>Setelah transfer, klik tombol konfirmasi untuk mengirim bukti via WhatsApp.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>Catatan (opsional)</label>
+                    <textarea id="donationNote" class="form-control" rows="3" placeholder="Pesan atau niat donasi Anda..."></textarea>
+                </div>
+
+                <button class="btn-primary w-100" id="btnDonasi" onclick="submitDonation()">
+    <i class="fas fa-credit-card"></i> Bayar Sekarang
+</button>
+                </button>
+                <p style="font-size:0.7rem;color:var(--text-muted);text-align:center;margin-top:12px;">
+                    <i class="fas fa-lock" style="font-size:0.65rem;"></i> Data Anda aman dan terenkripsi
+                </p>
+            </div>
+<!-- Info Rekening -->
+<div class="donation-card">
+    <h4 style="margin-bottom:14px;font-size:0.95rem;">
+        <i class="fas fa-university" style="color:var(--primary);margin-right:6px;"></i> 
+        Rekening Donasi (Manual)
+    </h4>
+    
+    <!-- Rekening 1: BSI -->
+    <div class="bank-row">
+        <span>Bank</span>
+        <strong>BSI (Bank Syariah Indonesia)</strong>
+    </div>
+    <div class="bank-row">
+        <span>No. Rekening</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <strong id="noRek1">7150048723</strong>
+            <button type="button" class="copy-btn" onclick="copyRek('7150048723')"><i class="fas fa-copy"></i> Salin</button>
+        </div>
+    </div>
+    <div class="bank-row">
+        <span>Atas Nama</span>
+        <strong>UPZISNU KEDUNGREJO</strong>
+    </div>
+    
+    <!-- Spacer -->
+    <div style="height: 15px;"></div>
+    
+    <!-- Rekening 2: BCA 1 -->
+    <div class="bank-row">
+        <span>Bank</span>
+        <strong>BCA</strong>
+    </div>
+    <div class="bank-row">
+        <span>No. Rekening</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <strong id="noRek2">0182317495</strong>
+            <button type="button" class="copy-btn" onclick="copyRek('0182317495')"><i class="fas fa-copy"></i> Salin</button>
+        </div>
+    </div>
+    <div class="bank-row">
+        <span>Atas Nama</span>
+        <strong>Yay Lembaga Amil Zakat</strong>
+    </div>
+    
+    <!-- Spacer -->
+    <div style="height: 15px;"></div>
+    
+    <!-- Rekening 3: BCA 2 -->
+    <div class="bank-row">
+        <span>Bank</span>
+        <strong>BCA</strong>
+    </div>
+    <div class="bank-row">
+        <span>No. Rekening</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <strong id="noRek3">0182317487</strong>
+            <button type="button" class="copy-btn" onclick="copyRek('0182317487')"><i class="fas fa-copy"></i> Salin</button>
+        </div>
+    </div>
+    <div class="bank-row">
+        <span>Atas Nama</span>
+        <strong>Yay Lembaga Amil Zakat Infaq</strong>
+		</div>
+    	   </div>
+	</div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <img src="assets/logo.png" alt="Logo" height="35" style="filter:brightness(0) invert(1);margin-bottom:14px;">
+                <p>Jl. Brigjen Katamso, Kedungrejo,<br>Waru, Sidoarjo 61256</p>
+                <div class="social-icons" style="margin-top:16px;">
+                    <a href="https://www.facebook.com/lazisnu.kedungrejo/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/upzisnukedungrejo_waroe target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Tentang Kami</h4>
+                <ul>
+                    <li><a href="#">Profil Lazisnu</a></li>
+                    <li><a href="#">Cara Berdonasi</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Program</h4>
+                <ul>
+                    <li><a href="programs.html">Zakat</a></li>
+                    <li><a href="programs.html">Wakaf</a></li>
+                    <li><a href="programs.html">Qurban</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Kontak</h4>
+                <ul>
+                    <li><a href="https://maps.app.goo.gl/uLtML1B3FoEwDnuq8">Kedungrejo, Waru</a></li>
+                    <li><a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;">+62 858-5049-4713</a></li>
+                    <li><a href="mailto:upzisnu.kedungrejos@gmail.com">upzisnu.kedungrejos@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <footer class="footer">
+    <div class="copyright">
+        © 2021 - <span id="tahun-sekarang"></span> NU-Care Lazisnu Kedungrejo | Designed by 
+        <a href="https://syamsdigital.my.id" target="_blank" style="text-decoration: none; color: inherit;">Syams Digital</a>
+    </div>
+</footer>
+
+<script>
+    // Mengambil tahun saat ini secara otomatis
+    document.getElementById("tahun-sekarang").innerHTML = new Date().getFullYear();
+</script>
+
+<script src="js/main.js"></script>
+<script src="js/donasi.js"></script>
+</body>
+</html>

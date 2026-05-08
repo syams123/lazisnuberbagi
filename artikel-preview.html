@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview Artikel - Lazisnu Kedungrejo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #067d7d;
+            --text-dark: #1e2a3a;
+            --text-light: #6c757d;
+            --bg-light: #f8f9fa;
+        }
+        body {
+            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .preview-header {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .preview-header h1 { font-size: 2rem; margin-bottom: 15px; }
+        .preview-meta { color: var(--text-light); font-size: 0.85rem; margin-bottom: 20px; }
+        .featured-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 16px; margin-bottom: 30px; }
+        .preview-content { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .preview-content p { margin-bottom: 20px; line-height: 1.8; }
+        .preview-content h2, .preview-content h3 { margin: 25px 0 15px; color: var(--primary); }
+        .preview-content img { max-width: 100%; border-radius: 12px; margin: 20px 0; }
+        .back-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .preview-header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i> Kembali ke Editor</a>
+        
+        <div class="preview-header">
+            <span class="badge" id="previewCategory">Preview</span>
+            <h1 id="previewTitle">Judul Artikel</h1>
+            <div class="preview-meta">
+                <i class="far fa-calendar-alt"></i> <span id="previewDate">-</span>
+            </div>
+        </div>
+        
+        <img id="previewImage" class="featured-image" src="" alt="Featured Image" onerror="this.style.display='none'">
+        
+        <div class="preview-content" id="previewContent">
+            <p>Konten artikel akan tampil di sini...</p>
+        </div>
+    </div>
+
+    <script>
+        function loadPreview() {
+            const previewData = localStorage.getItem('previewArticle');
+            if (previewData) {
+                const data = JSON.parse(previewData);
+                document.getElementById('previewTitle').innerText = data.title || 'Judul Artikel';
+                document.getElementById('previewCategory').innerHTML = `<i class="fas fa-tag"></i> ${data.category || 'Preview'}`;
+                document.getElementById('previewDate').innerText = data.date || new Date().toLocaleDateString('id-ID');
+                document.getElementById('previewContent').innerHTML = data.content || '<p>Konten tidak tersedia</p>';
+                
+                if (data.featured_image && data.featured_image !== '') {
+                    const img = document.getElementById('previewImage');
+                    img.src = data.featured_image;
+                    img.style.display = 'block';
+                }
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadPreview);
+    </script>
+</body>
+</html>

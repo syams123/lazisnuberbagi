@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Tentang Kami - Lazisnu Kedungrejo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Layout Sidebar - Sama dengan halaman Berita */
+        .tentang-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin: 30px 0 60px;
+            align-items: start;
+        }
+        
+        /* Sidebar Card */
+        .sidebar-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 22px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            top: 80px;
+	    margin-bottom: 15px;
+        }
+        .sidebar-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            color: var(--primary);
+        }
+        
+        /* Profile Card di Main Content */
+        .profile-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+        .profile-card h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .profile-card p {
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: justify;
+        }
+        
+        /* Alamat Card */
+        .alamat-card {
+            background: var(--primary-light);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            border: 1px solid rgba(6,125,125,0.2);
+        }
+        .alamat-icon {
+            width: 55px;
+            height: 55px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+        .alamat-content {
+            flex: 1;
+        }
+        .alamat-content h3 {
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        .alamat-content p {
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        
+        /* Struktur Title */
+        .struktur-header {
+            margin-bottom: 25px;
+        }
+        .struktur-header h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .struktur-header p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        
+        /* Accordion - Sama dengan sebelumnya */
+        .accordion {
+            margin-top: 10px;
+        }
+        .accordion-item {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+        .accordion-header {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--bg-white);
+            border: none;
+            text-align: left;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        .accordion-header:hover {
+            background: var(--primary-light);
+        }
+        .accordion-header i:last-child {
+            transition: transform 0.3s ease;
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+        .accordion-item.active .accordion-header i:last-child {
+            transform: rotate(180deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 20px;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 2000px;
+            padding: 0 20px 18px 20px;
+        }
+        
+        /* Tabel Pengurus */
+        .pengurus-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .pengurus-table tr {
+            border-bottom: 1px solid var(--border);
+        }
+        .pengurus-table td {
+            padding: 10px 6px;
+            vertical-align: top;
+            font-size: 0.85rem;
+        }
+        .pengurus-table td:first-child {
+            font-weight: 700;
+            width: 140px;
+            color: var(--primary);
+        }
+        .pengurus-table td:last-child {
+            color: var(--text-dark);
+        }
+        
+        /* Multi Column untuk divisi */
+        .multi-col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px 12px;
+        }
+        .multi-col span {
+            font-size: 0.85rem;
+            padding: 5px 0;
+            display: block;
+            border-bottom: 1px dashed var(--border);
+        }
+        
+        /* Sub Judul di Accordion */
+        .sub-title {
+            color: var(--primary);
+            margin: 12px 0 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding-left: 6px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        /* Sidebar Info Cards */
+        .info-card {
+            margin-top: 20px;
+        }
+        .info-card .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .info-card .info-item:last-child {
+            border-bottom: none;
+        }
+        .info-card .info-icon {
+            width: 35px;
+            height: 35px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        .info-card .info-text {
+            flex: 1;
+        }
+        .info-card .info-text strong {
+            display: block;
+            font-size: 0.8rem;
+        }
+        .info-card .info-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        /* Social Links Sidebar */
+        .social-links-sidebar {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .social-links-sidebar a {
+            width: 38px;
+            height: 38px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        .social-links-sidebar a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tentang-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar-card {
+                position: static;
+            }
+            .multi-col {
+                grid-template-columns: 1fr;
+            }
+            .pengurus-table td {
+                display: block;
+                width: 100%;
+                padding: 5px 0;
+            }
+            .pengurus-table td:first-child {
+                padding-top: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .alamat-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+	/* ========== DARK MODE FIX untuk Alamat Card & Info Icon ========== */
+body.dark-mode .alamat-card {
+    background: rgba(6,125,125,0.15);
+    border-color: rgba(6,125,125,0.3);
+}
+
+body.dark-mode .alamat-icon {
+    background: var(--primary-dark);
+    color: #fff;
+}
+
+body.dark-mode .alamat-content h3 {
+    color: #4ade80;
+}
+
+body.dark-mode .alamat-content p {
+    color: #cbd5e1;
+}
+
+body.dark-mode .info-card .info-icon {
+    background: rgba(6,125,125,0.2);
+    color: #4ade80;
+}
+
+body.dark-mode .info-card .info-text strong {
+    color: #e0e0e0;
+}
+
+body.dark-mode .info-card .info-text span {
+    color: #94a3b8;
+}
+
+body.dark-mode .social-links-sidebar a {
+    background: rgba(255,255,255,0.08);
+    color: #4ade80;
+}
+
+body.dark-mode .social-links-sidebar a:hover {
+    background: var(--primary);
+    color: #fff;
+}
+/* ========== DARK MODE FIX untuk Alamat Card & Info Icon ========== */
+body.dark-mode .alamat-card {
+    background: rgba(6,125,125,0.15);
+    border-color: rgba(6,125,125,0.3);
+}
+
+body.dark-mode .alamat-icon {
+    background: var(--primary-dark);
+    color: #fff;
+}
+
+body.dark-mode .alamat-content h3 {
+    color: #4ade80;
+}
+
+body.dark-mode .alamat-content p {
+    color: #cbd5e1;
+}
+
+body.dark-mode .info-card .info-icon {
+    background: rgba(6,125,125,0.2);
+    color: #4ade80;
+}
+
+body.dark-mode .info-card .info-text strong {
+    color: #e0e0e0;
+}
+
+body.dark-mode .info-card .info-text span {
+    color: #94a3b8;
+}
+
+body.dark-mode .social-links-sidebar a {
+    background: rgba(255,255,255,0.08);
+    color: #4ade80;
+}
+
+body.dark-mode .social-links-sidebar a:hover {
+    background: var(--primary);
+    color: #fff;
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="logo"><a href="index.html"><img src="assets/logo.png" alt="Logo Lazisnu"></a></div>
+        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="tentang.html" class="active">Tentang Kami</a></li>
+		<li><a href="programs.html">Program Donasi</a></li>
+                <li><a href="artikel.html">Artikel</a></li>
+                <li class="dropdown" id="loginDropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Masuk <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="login.html"><i class="fas fa-hand-holding-heart"></i> <span>Sebagai Donatur</span></a>
+                        <a href="penulis-login.html"><i class="fas fa-pen-fancy"></i> <span>Sebagai Penulis</span></a>
+                        <a href="admin-login.html"><i class="fas fa-shield-alt"></i> <span>Sebagai Admin</span></a>
+                    </div>
+                </li>
+                <li><button id="darkModeToggle" class="dark-toggle"><i class="fas fa-moon"></i></button></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-building"></i> Tentang Kami</h1>
+        <p>Mengenal lebih dekat NU-Care Lazisnu Kedungrejo</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="tentang-layout">
+        <!-- Main Content -->
+        <div>
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <h2><i class="fas fa-hand-holding-heart"></i> NU-Care Lazisnu Kedungrejo</h2>
+                <p>NU Care Lazisnu Kedungrejo merupakan salah satu lembaga Amal NU resmi sebagai pintu masuk untuk masyarakat global mengenal Lembaga Amil zakat, Infak, Sedekah Nahdlatul Ulama. Kami salah satu Badan Amil Zakat Lazisnu Ranting Kedungrejo yang berlokasi di Jalan Brigjen Katamso 120 A Waru Sidoarjo. Kami merupakan salah satu situs resmi Lazisnu yang sebagai lembaga pengelola dana masyarakat (zakat, infak, sedekah, wakaf, CSR, dll) sebagai penyalur dana yang amanah dan profesional.</p>
+            </div>
+
+            <!-- Alamat Card -->
+            <div class="alamat-card">
+                <div class="alamat-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="alamat-content">
+                    <h3><i class="fas fa-location-dot"></i> Alamat Kami</h3>
+                    <p>Jalan Brigjen Katamso 120 A, Kedungrejo, Waru, Sidoarjo 61256</p>
+                    <p><i class="fas fa-phone"></i> +62 857-3612-0230 | <i class="fas fa-envelope"></i> upzisnu.kedungrejos@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Struktur Pengurus -->
+            <div class="struktur-header">
+                <h3><i class="fas fa-users"></i> Struktur Pengurus</h3>
+                <p>UNIT PENGELOLA ZAKAT, INFAQ DAN SHODAQAH (UPZIS)<br>LEMBAGA AMIL ZAKAT INFAQ DAN SHADAQAH NAHDLATUL ULAMA<br>PENGURUS RANTING NAHDLATUL ULAMA, KEDUNGREJO – WARU – SIDOARJO</p>
+            </div>
+
+            <!-- Accordion -->
+            <div class="accordion" id="strukturAccordion">
+                
+                <!-- 1. Pelindung -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-shield-alt"></i> Pelindung</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>Rois Syuriah</td><td>Pengurus NU Ranting Kedungrejo</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 2. Dewan Pengawas -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-eye"></i> Dewan Pengawas</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>Ketua Tanfidyah NU</td><td>Pengurus NU Ranting Kedungrejo</td></tr>
+                            <tr><td>Ketua Banom-banom NU</td><td>Pengurus NU Ranting Kedungrejo</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 3. Dewan Syar'i -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-gavel"></i> Dewan Syar'i</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>Drs. H. Sudarmaji Muhdlofar</td><td>RT. 22</td></tr>
+                            <tr><td>Drs. H. Wahyu Hadi Pramono</td><td>RT. 28</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 4. Dewan Penasehat -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-chalkboard-user"></i> Dewan Penasehat</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>M. Lutfi, B.A</td><td>RT. 01</td></tr>
+                            <tr><td>Hasan Syafi'i, SH</td><td>RT. 27</td></tr>
+                            <tr><td>Ir. Kusnadi</td><td>RT. 16</td></tr>
+                            <tr><td>Bisri</td><td>RT. 26</td></tr>
+                            <tr><td>Syakri</td><td>RT. 28</td></tr>
+                            <tr><td>Mudjiarso</td><td>RT. 08</td></tr>
+                            <tr><td>Ade Permana, B.Sc, MBA</td><td>RT. 26</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 5. Ketua -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-user-tie"></i> Ketua</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>Muhammad Syafi'i, S.Si</td><td>RT. 15</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 6. Wakil Ketua -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-user-friends"></i> Wakil Ketua</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>Anita Ayu</td><td>RT. 25</td></tr>
+                            <tr><td>Rizky Rully Hermawan</td><td>RT. 08</td></tr>
+                            <tr><td>Sherli Rachma Widya Utami</td><td>RT. 26</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 7. Sekretaris -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-file-alt"></i> Sekretaris</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>Evi Desyanti, S.Pd</td><td>RT. 22</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 8. Wakil Sekretaris -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-file-signature"></i> Wakil Sekretaris</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>Nafi'ah Yusri Laila</td><td>RT. 22</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 9. Bendahara -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-coins"></i> Bendahara</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>Hj. Choiriyah Adimara, SH</td><td>RT. 16</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 10. Wakil Bendahara -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-calculator"></i> Wakil Bendahara</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <table class="pengurus-table">
+                            <tr><td>Mashita</td><td>RT. 16</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 11. Divisi Penggalangan Dana -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-hand-holding-usd"></i> Divisi Penggalangan Dana / Fundraising</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="multi-col">
+                            <span>Nono Sujiono (RT. 02)</span>
+                            <span>Lailatul Istiqomah (RT. 05)</span>
+                            <span>Heni Mashudah (RT. 25)</span>
+                            <span>Elik Maslamah (RT. 24)</span>
+                            <span>Abd. Waris (RT. 06)</span>
+                            <span>Abdul Yazid (RT. 26)</span>
+                            <span>Muhammad Fathoni (RT. 16)</span>
+                            <span>Candra Umdatul Farid (RT. 29)</span>
+                            <span>Rahmat Yudha Prayitno (RT. 27)</span>
+                            <span>Siti Zahroh (RT. 16)</span>
+                            <span>Tutik (RT. 17)</span>
+                            <span>M. Ainur Rizal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12. Divisi Pentasharrufan -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-chart-line"></i> Divisi Pentasharrufan</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="sub-title">a. Sosial Keagamaan</div>
+                        <div class="multi-col">
+                            <span>M. Syahid Putra (RT. 16)</span>
+                            <span>Hanana (RT. 29)</span>
+                            <span>Bu Choirul Anam (RT. 24)</span>
+                        </div>
+                        <div class="sub-title">b. Bidang Kesehatan</div>
+                        <div class="multi-col">
+                            <span>Nadia Novianti (RT. 26)</span>
+                            <span>Chrisna Ayu (RT. 21)</span>
+                            <span>Isnaini Miftahul Inayah (RT. 26)</span>
+                        </div>
+                        <div class="sub-title">c. Bidang Pendidikan</div>
+                        <div class="multi-col">
+                            <span>Sugianto Raaf, S.Pd.I (RT. 30)</span>
+                            <span>Hadi Daryanto (RT. 26)</span>
+                            <span>Siti Mahmudah, S.Pd.I (RT. 22)</span>
+                        </div>
+                        <div class="sub-title">d. Bidang Kemanusiaan</div>
+                        <div class="multi-col">
+                            <span>Miftahul Aminuddin (RT. 29)</span>
+                            <span>Zainul Fanani (RT. 08)</span>
+                            <span>Dendi Fiqie (RT. 26)</span>
+                            <span>Chrisna Dwi (RT. 21)</span>
+                            <span>Sulistiyono (RT. 28)</span>
+                        </div>
+                        <div class="sub-title">e. Bidang Ekonomi dan Usaha</div>
+                        <div class="multi-col">
+                            <span>Dwi Agung Sugianto (RT. 03)</span>
+                            <span>Yurid Citra Ayu (RT. 26)</span>
+                            <span>H. Muslimin (RT. 28)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 13. Divisi Publikasi & IT -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span><i class="fas fa-laptop-code"></i> Divisi Publikasi & IT</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="multi-col">
+                            <span>Misbachul Qulub (RT. 26)</span>
+                            <span>Mohamad Samsul Hadi, Lc., M.Pd. (RT. 16)</span>
+                            <span>Berliana (RT. 01)</span>
+                            <span>Salam (RT. 26)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+            <div class="sidebar-card">
+                <h4><i class="fas fa-info-circle"></i> Info Kontak</h4>
+                <div class="info-card">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="info-text">
+                            <strong>Telepon</strong>
+                            <span>+62 857-3612-0230</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info-text">
+                            <strong>Email</strong>
+                            <span>upzisnu.kedungrejos@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-clock"></i></div>
+                        <div class="info-text">
+                            <strong>Jam Operasional</strong>
+                            <span>Senin - Jumat, 08:00 - 16:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h4><i class="fas fa-share-alt"></i> Ikuti Kami</h4>
+                <div class="social-links-sidebar">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h4><i class="fas fa-hand-holding-heart"></i> Donasi Sekarang</h4>
+                <p style="font-size: 0.85rem; margin-bottom: 15px;">Salurkan zakat, infak, sedekah Anda melalui kami.</p>
+                <a href="programs.html" class="btn-primary w-100" style="justify-content: center;">
+                    <i class="fas fa-arrow-right"></i> Lihat Program
+                </a>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <img src="assets/logo.png" alt="Logo" height="35" style="filter:brightness(0) invert(1);margin-bottom:14px;">
+                <p>Jl. Brigjen Katamso, Kedungrejo,<br>Waru, Sidoarjo 61256</p>
+                <div class="social-icons" style="margin-top:16px;">
+                    <a href="https://www.facebook.com/lazisnu.kedungrejo/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/upzisnukedungrejo_waroe target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4>Tentang Kami</h4>
+                <ul>
+                    <li><a href="#">Profil Lazisnu</a></li>
+                    <li><a href="#">Cara Berdonasi</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Program</h4>
+                <ul>
+                    <li><a href="programs.html">Zakat</a></li>
+                    <li><a href="programs.html">Wakaf</a></li>
+                    <li><a href="programs.html">Qurban</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Kontak</h4>
+                <ul>
+                    <li><a href="https://maps.app.goo.gl/uLtML1B3FoEwDnuq8">Kedungrejo, Waru</a></li>
+                    <li><a href="https://wa.me/6285850494713" target="_blank" style="text-decoration: none;">+62 858-5049-4713</a></li>
+                    <li><a href="mailto:upzisnu.kedungrejos@gmail.com">upzisnu.kedungrejos@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+        <footer class="footer">
+    <div class="copyright">
+        © 2021 - <span id="tahun-sekarang"></span> NU-Care Lazisnu Kedungrejo | Designed by 
+        <a href="https://syamsdigital.my.id" target="_blank" style="text-decoration: none; color: inherit;">Syams Digital</a>
+    </div>
+</footer>
+
+<script>
+    // Mengambil tahun saat ini secara otomatis
+    document.getElementById("tahun-sekarang").innerHTML = new Date().getFullYear();
+</script>
+
+<script src="js/main.js"></script>
+<script>
+    // Inisialisasi manual untuk memastikan semua fungsi berjalan
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inisialisasi Dark Mode
+        if (typeof initDarkMode === 'function') {
+            initDarkMode();
+        } else {
+            console.warn('initDarkMode tidak ditemukan');
+        }
+        
+        // Inisialisasi Mobile Menu
+        if (typeof initMobileMenu === 'function') {
+            initMobileMenu();
+        } else {
+            console.warn('initMobileMenu tidak ditemukan');
+        }
+        
+        // Inisialisasi Dropdown Mobile
+        if (typeof initDropdownMobile === 'function') {
+            initDropdownMobile();
+        }
+        
+        // Inisialisasi Navbar Auth
+        if (typeof initNavbarAuth === 'function') {
+            initNavbarAuth();
+        }
+        
+        // Accordion functionality
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        accordionItems.forEach(function(item) {
+            const header = item.querySelector('.accordion-header');
+            if (header) {
+                header.addEventListener('click', function() {
+                    accordionItems.forEach(function(otherItem) {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    item.classList.toggle('active');
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
