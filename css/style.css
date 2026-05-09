@@ -1334,10 +1334,26 @@ footer p { font-size: 0.85rem; line-height: 1.7; color: #94a3b8; }
     transition: var(--transition);
     font-family: inherit;
 }
-.dropdown-user-btn:hover { background: var(--primary-light); color: var(--primary); }
-.dropdown-user-btn i.chevron { font-size: 0.68rem; transition: transform 0.3s; }
-.dropdown-user.open .dropdown-user-btn i.chevron { transform: rotate(180deg); }
+/* ========== DROPDOWN CHEVRON ========== */
+.dropbtn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 40px;
+    transition: all 0.3s ease;
+}
 
+.dropbtn i:last-child {
+    font-size: 0.7rem;
+    transition: transform 0.3s;
+}
+
+.dropdown:hover .dropbtn i:last-child,
+.dropdown.open .dropbtn i:last-child {
+    transform: rotate(180deg);
+}
 .dropdown-user-menu {
     position: absolute;
     top: calc(100% + 8px);
