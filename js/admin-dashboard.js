@@ -332,15 +332,28 @@ function closeCategoryModal() {
 
 async function addNewCategory() {
   var val = document.getElementById('newCategory').value.trim();
-  if (!val) { alert('Masukkan nama kategori.'); return; }
+  if (!val) {
+    alert('Masukkan nama kategori.');
+    return;
+  }
 
   try {
-    var result = await apiFetch({ action: 'addCategory', category: val }, 'POST');
+    var result = await apiFetch({
+      action: 'addCategory',
+      category: val
+    }, 'POST');
+
     if (result.status === 'success') {
       alert('Kategori "' + val + '" berhasil ditambahkan!');
+
       closeCategoryModal();
-      await fetchCategories();          // refresh select
-      renderCategorySelect('category'); // update select di form yang terbuka
+
+      await fetchCategories();
+      renderCategorySelect('category');
+
+      // PENTING: otomatis pilih kategori baru
+      document.getElementById('category').value = val;
+
     } else {
       throw new Error(result.message || 'Gagal');
     }
