@@ -1762,14 +1762,6 @@ body.dark-mode .skeleton-content {
         transform: translateX(0);
     }
 
-    body.menu-open::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.38);
-        z-index: 1190;
-    }
-
     header .container {
         position: relative;
     }
