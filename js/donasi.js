@@ -9,19 +9,26 @@ let currentCampaign = null;
 /* ========== FORMAT TANGGAL ========== */
 function formatDateIndonesia(dateString) {
     if (!dateString) return '-';
-    let cleanDate = dateString;
-    if (dateString.includes('T')) {
-        cleanDate = dateString.split('T')[0];
-    }
-    const date = new Date(cleanDate);
+
+    const cleanDate = String(dateString).substring(0, 10);
+    const parts = cleanDate.split('-');
+    if (parts.length !== 3) return '-';
+
+    const date = new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2]),
+        12, 0, 0
+    );
+
     if (isNaN(date.getTime())) return '-';
+
     return date.toLocaleDateString('id-ID', {
         day: 'numeric',
         month: 'long',
         year: 'numeric'
     });
 }
-
 /* ========== LOAD CAMPAIGN DETAIL ========== */
 async function loadCampaign() {
     const container = document.getElementById('campaignDetail');
@@ -224,7 +231,7 @@ async function submitDonation() {
     try {
         // Simpan ke spreadsheet via GAS
         await apiFetch({
-            action:       'addDonation',
+            action:       'saveDonation',
             campaign_id:  currentCampaign.id,
             name:         name,
             phone:        phone,
