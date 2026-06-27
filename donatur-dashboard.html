@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Dashboard Donatur - Lazisnu Kedungrejo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .donatur-hero{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:var(--radius-lg);padding:28px;color:#fff;margin-bottom:24px;box-shadow:var(--shadow)}
+        .donatur-hero h1{font-size:clamp(1.35rem,3vw,2rem);margin:0 0 6px;font-weight:800}.donatur-hero p{opacity:.9;margin:0;font-size:.92rem}.donatur-quick{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.donatur-quick a{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);color:#fff;padding:9px 14px;border-radius:30px;font-size:.85rem;font-weight:700;display:inline-flex;align-items:center;gap:8px}.donatur-quick a:hover{background:#fff;color:var(--primary)}
+        .donatur-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:start}.dashboard-panel{background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:22px}.panel-title{display:flex;align-items:center;gap:10px;font-size:1.08rem;font-weight:800;margin-bottom:14px;color:var(--text-dark)}.panel-title i{color:var(--primary)}
+        .donatur-profile-row{display:flex;gap:14px;align-items:center;margin-bottom:16px}.donatur-avatar{width:58px;height:58px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.7rem;border:2px solid var(--primary)}.profile-mini h3{margin:0 0 4px;font-size:1rem}.profile-mini p{margin:0;color:var(--text-muted);font-size:.84rem;word-break:break-all}.info-list{display:grid;gap:10px}.info-item{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:.86rem}.info-item:last-child{border-bottom:none}.info-item span:first-child{color:var(--text-muted)}.info-item span:last-child{font-weight:700;text-align:right}
+        .donasi-table-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}.donasi-empty{text-align:center;color:var(--text-muted);padding:40px 16px}.donasi-empty i{font-size:2rem;color:var(--primary);margin-bottom:10px}.status-pill{display:inline-flex;align-items:center;border-radius:99px;padding:4px 10px;font-size:.75rem;font-weight:800}.status-pending{background:#fff7ed;color:#c2410c}.status-success,.status-paid{background:#dcfce7;color:#15803d}.status-failed,.status-cancel{background:#fee2e2;color:#b91c1c}.campaign-link{font-weight:700;color:var(--primary)}
+        @media(max-width:900px){.donatur-grid{grid-template-columns:1fr}.dashboard-panel{padding:18px}.donatur-hero{padding:22px}.table-wrapper th,.table-wrapper td{white-space:nowrap}.hide-mobile{display:none}}
+        @media(max-width:480px){.donatur-profile-row{align-items:flex-start}.donatur-avatar{width:48px;height:48px;font-size:1.4rem}.info-item{flex-direction:column;gap:3px}.info-item span:last-child{text-align:left}.dashboard-header .container{gap:8px}.dropdown-user-btn{padding:5px 8px}.avatar-sm{display:none}}
+    </style>
+</head>
+<body>
+<header class="dashboard-header">
+    <div class="container">
+        <div class="logo"><a href="index.html"><img src="assets/logo.png" alt="Logo Lazisnu"></a></div>
+        <div class="header-right">
+            <div class="avatar-sm" style="display:flex;align-items:center;justify-content:center;background:var(--primary-light);color:var(--primary);"><i class="fas fa-user"></i></div>
+            <div class="dropdown-user" id="dropdownUser">
+                <button class="dropdown-user-btn" id="dropdownUserBtn"><span id="donaturNameDisplay">Donatur</span><i class="fas fa-chevron-down chevron"></i></button>
+                <div class="dropdown-user-menu" id="dropdownUserMenu">
+                    <a href="index.html"><i class="fas fa-home"></i> Ke Beranda</a>
+                    <a href="programs.html"><i class="fas fa-hand-holding-heart"></i> Program Donasi</a>
+                    <a href="javascript:void(0)" onclick="logoutDonatur()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container dashboard-body">
+    <section class="donatur-hero">
+        <h1>Assalamu’alaikum, <span id="heroName">Donatur</span></h1>
+        <p>Terima kasih sudah ikut berbagi melalui Lazisnu Kedungrejo.</p>
+        <div class="donatur-quick">
+            <a href="programs.html"><i class="fas fa-plus-circle"></i> Donasi Lagi</a>
+            <a href="index.html"><i class="fas fa-home"></i> Beranda</a>
+        </div>
+    </section>
+
+    <div class="stats-grid-penulis">
+        <div class="stat-card-penulis"><div class="stat-num-penulis" id="statTotalNominal">Rp 0</div><div class="stat-lbl-penulis">Total Donasi</div></div>
+        <div class="stat-card-penulis"><div class="stat-num-penulis" id="statTotalTransaksi">0</div><div class="stat-lbl-penulis">Transaksi</div></div>
+        <div class="stat-card-penulis"><div class="stat-num-penulis" id="statPending">0</div><div class="stat-lbl-penulis">Pending</div></div>
+        <div class="stat-card-penulis"><div class="stat-num-penulis" id="statProgram">0</div><div class="stat-lbl-penulis">Program Diikuti</div></div>
+    </div>
+
+    <div class="donatur-grid">
+        <section class="dashboard-panel">
+            <div class="donasi-table-meta">
+                <div class="panel-title"><i class="fas fa-receipt"></i> Riwayat Donasi</div>
+                <a href="programs.html" class="btn-primary btn-sm"><i class="fas fa-hand-holding-heart"></i> Donasi</a>
+            </div>
+            <div class="table-wrapper" style="margin-bottom:0;box-shadow:none;">
+                <table>
+                    <thead><tr><th>Tanggal</th><th>Program</th><th>Nominal</th><th>Status</th><th class="hide-mobile">Metode</th></tr></thead>
+                    <tbody id="donationTableBody"><tr><td colspan="5" class="text-center" style="padding:34px;"><i class="fas fa-spinner fa-spin" style="color:var(--primary);"></i> Memuat riwayat...</td></tr></tbody>
+                </table>
+            </div>
+        </section>
+
+        <aside class="dashboard-panel">
+            <div class="panel-title"><i class="fas fa-user-circle"></i> Profil Donatur</div>
+            <div class="donatur-profile-row">
+                <div class="donatur-avatar"><i class="fas fa-user"></i></div>
+                <div class="profile-mini"><h3 id="profileName">Donatur</h3><p id="profileEmail">-</p></div>
+            </div>
+            <div class="info-list">
+                <div class="info-item"><span>Status Login</span><span>Aktif</span></div>
+                <div class="info-item"><span>Role</span><span>Donatur</span></div>
+                <div class="info-item"><span>Terakhir dibuka</span><span id="lastOpen">-</span></div>
+            </div>
+            <button class="btn-edit-profile" onclick="logoutDonatur()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </aside>
+    </div>
+</main>
+
+<script src="js/main.js"></script>
+<script src="js/donatur-dashboard.js"></script>
+</body>
+</html>
