@@ -1211,7 +1211,6 @@ footer p { font-size: 0.85rem; line-height: 1.7; color: #94a3b8; }
 .iklan-box {
     background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
     border-radius: var(--radius);
-    padding: 28px 18px;
     text-align: center;
     min-height: 170px;
     display: flex;
