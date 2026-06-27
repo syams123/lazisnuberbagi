@@ -46,22 +46,33 @@ async function loadCampaign() {
                 <span class="badge ${isEnded ? 'badge-ended' : 'badge-active'}">${isEnded ? 'Berakhir' : 'Aktif'}</span>
                 <h1 class="campaign-detail-title">${escapeHtml(c.title)}</h1>
                 <div class="campaign-detail-meta">
-                    <span><i class="fas fa-calendar-alt"></i> Deadline: ${formatDateIndonesia(c.deadline)}</span>
+                    ${c.deadline ? `
+<span><i class="fas fa-calendar-alt"></i> Deadline: ${formatDateIndonesia(c.deadline)}</span>
+` : `
+<span><i class="fas fa-infinity"></i> Donasi Berkelanjutan</span>
+`}
                     <span><i class="fas fa-map-marker-alt"></i> ${escapeHtml(c.location || 'Kedungrejo')}</span>
                     ${c.category ? `<span><i class="fas fa-tag"></i> ${escapeHtml(c.category)}</span>` : ''}
                 </div>
-                ${c.target !== 0 ? `
-                <div style="margin-bottom:18px;">
-                    <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--text-muted);margin-bottom:6px;">
-                        <span>Terkumpul: <strong style="color:var(--primary);">Rp ${formatRupiah(c.collected)}</strong></span>
-                        <span>${pct}%</span>
-                    </div>
-                    <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(pct,100)}%"></div></div>
-                    <div style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">Target: Rp ${formatRupiah(c.target)}</div>
-                </div>` : `
-                <div style="margin-bottom:18px;font-size:0.85rem;color:var(--text-muted);">
-                    Terkumpul: <strong style="color:var(--primary);">Rp ${formatRupiah(c.collected)}</strong> (Target Unlimited)
-                </div>`}
+                ${Number(c.target) > 0 ? `
+<div style="margin-bottom:18px;">
+    <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--text-muted);margin-bottom:6px;">
+        <span>Terkumpul: <strong style="color:var(--primary);">Rp ${formatRupiah(c.collected)}</strong></span>
+        <span>${pct}%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(pct,100)}%"></div></div>
+    <div style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;">Target: Rp ${formatRupiah(c.target)}</div>
+</div>` : `
+<div class="unlimited-donation-box">
+    <div>
+        <span>Terkumpul</span>
+        <strong>Rp ${formatRupiah(c.collected)}</strong>
+    </div>
+    <div class="target-unlimited">
+        <i class="fas fa-infinity"></i>
+        <span>Target Tidak Dibatasi</span>
+    </div>
+</div>`}
                 <div class="campaign-desc">${c.description || 'Deskripsi program tidak tersedia.'}</div>
                 ${c.maps_link ? `<div style="margin-top:16px;"><a href="${c.maps_link}" target="_blank" class="btn-outline btn-sm"><i class="fas fa-map-marker-alt"></i> Lihat Lokasi</a></div>` : ''}
             </div>`;
