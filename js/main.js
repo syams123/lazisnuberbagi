@@ -95,13 +95,55 @@ function initMobileMenu() {
     const navbar  = document.getElementById('navbar');
     if (!toggle || !navbar) return;
 
-    toggle.addEventListener('click', () => navbar.classList.toggle('open'));
+    const icon = toggle.querySelector('i');
 
-    // Tutup saat klik di luar
-    document.addEventListener('click', (e) => {
-        if (!navbar.contains(e.target) && !toggle.contains(e.target)) {
-            navbar.classList.remove('open');
+    function closeMenu() {
+        navbar.classList.remove('open');
+        toggle.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        if (icon) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
         }
+        toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function openMenu() {
+        navbar.classList.add('open');
+        toggle.classList.add('active');
+        document.body.classList.add('menu-open');
+        if (icon) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        }
+        toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    toggle.setAttribute('aria-label', 'Buka atau tutup menu');
+    toggle.setAttribute('aria-expanded', 'false');
+
+    toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navbar.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    // Tutup saat klik link menu biasa, kecuali tombol dropdown login
+    navbar.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (!link.classList.contains('dropbtn')) closeMenu();
+        });
+    });
+
+    // Tutup saat klik di luar panel menu
+    document.addEventListener('click', (e) => {
+        if (navbar.classList.contains('open') && !navbar.contains(e.target) && !toggle.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    // Tutup jika layar dibesarkan ke desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) closeMenu();
     });
 }
 
