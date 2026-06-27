@@ -40,28 +40,24 @@ function togglePassword(fieldId, btn) {
 /* ========== FORMAT TANGGAL ========== */
 function formatDate(dateString, format = 'long') {
     if (!dateString) return '-';
-    
-    // Jika format ISO (mengandung T), potong bagian waktu
-    let cleanDate = dateString;
-    if (dateString.includes('T')) {
-        cleanDate = dateString.split('T')[0];
-    }
-    
-    const date = new Date(cleanDate);
+
+    const cleanDate = String(dateString).substring(0, 10);
+    const parts = cleanDate.split('-');
+    if (parts.length !== 3) return '-';
+
+    const date = new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2]),
+        12, 0, 0
+    );
+
     if (isNaN(date.getTime())) return '-';
-    
-    if (format === 'short') {
-        return date.toLocaleDateString('id-ID', { 
-            day: 'numeric', 
-            month: 'short', 
-            year: 'numeric' 
-        });
-    }
-    
-    return date.toLocaleDateString('id-ID', { 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
+
+    return date.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: format === 'short' ? 'short' : 'long',
+        year: 'numeric'
     });
 }
 /* ========== DARK MODE ========== */
