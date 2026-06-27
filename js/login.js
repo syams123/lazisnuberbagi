@@ -23,7 +23,7 @@ async function donaturLogin() {
             localStorage.setItem('userName', data.name);
             localStorage.setItem('userEmail', email);
             localStorage.setItem('userLoggedIn', 'true');
-            window.location.href = 'index.html';
+            window.location.href = 'donatur-dashboard.html';
         } else {
             errEl.innerText = 'Email atau password salah';
             errEl.classList.add('show');
