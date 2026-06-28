@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Checkout - Toko Lazisnu</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/toko.css">
+</head>
+<body>
+
+<header class="store-header">
+  <div class="container store-header-inner">
+    <a href="toko.html" class="store-logo">
+      <img src="assets/logo.png" alt="Lazisnu">
+    </a>
+
+    <div class="store-search-box">
+      <input type="text" value="Checkout Pesanan" readonly>
+      <button onclick="window.location.href='keranjang.html'"><i class="fas fa-shopping-cart"></i></button>
+    </div>
+  </div>
+</header>
+
+<main class="container checkout-page">
+  <div class="checkout-title">
+    <h1><i class="fas fa-credit-card"></i> Checkout</h1>
+    <a href="keranjang.html" class="btn-refresh">
+      <i class="fas fa-arrow-left"></i> Kembali Keranjang
+    </a>
+  </div>
+
+  <div class="checkout-layout">
+    <section class="checkout-panel">
+      <h3><i class="fas fa-map-marker-alt"></i> Alamat Pengiriman</h3>
+
+      <div class="form-group">
+        <label>Nama Penerima</label>
+        <input type="text" id="buyerName" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>No. WhatsApp</label>
+        <input type="text" id="buyerPhone" class="form-control" placeholder="08xxxxxxxxxx">
+      </div>
+
+      <div class="form-group">
+        <label>Alamat Lengkap</label>
+        <textarea id="buyerAddress" class="form-control" rows="3" placeholder="RT/RW, gang, patokan rumah..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Dusun / Area Kedungrejo</label>
+        <select id="buyerArea" class="form-control" onchange="calculateCheckout()">
+          <option value="" data-km="0">Pilih area</option>
+          <option value="Kedungrejo Pusat" data-km="1">Kedungrejo Pusat ±1 km</option>
+          <option value="Kedungturi" data-km="2">Kedungturi ±2 km</option>
+          <option value="Ketingan" data-km="2.5">Ketingan ±2.5 km</option>
+          <option value="Kalidawir" data-km="3">Kalidawir ±3 km</option>
+          <option value="Kedungboto" data-km="3.5">Kedungboto ±3.5 km</option>
+          <option value="Area Kedungrejo Lainnya" data-km="4">Area Kedungrejo Lainnya ±4 km</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Catatan Pesanan</label>
+        <textarea id="orderNote" class="form-control" rows="2" placeholder="Opsional"></textarea>
+      </div>
+
+      <h3 style="margin-top:22px;"><i class="fas fa-wallet"></i> Metode Pembayaran</h3>
+
+      <div class="payment-choice">
+        <label>
+          <input type="radio" name="paymentMethod" value="cod" checked>
+          COD / Bayar di Tempat
+        </label>
+        <label>
+          <input type="radio" name="paymentMethod" value="transfer">
+          Transfer Manual
+        </label>
+      </div>
+    </section>
+
+    <aside class="checkout-summary">
+      <h3>Ringkasan Pesanan</h3>
+
+      <div id="checkoutItems" class="checkout-items"></div>
+
+      <hr>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <strong id="checkoutSubtotal">Rp 0</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Total Berat</span>
+        <strong id="checkoutWeight">0 kg</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Jarak</span>
+        <strong id="checkoutDistance">0 km</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Ongkir</span>
+        <strong id="checkoutShipping">Rp 0</strong>
+      </div>
+
+      <div class="summary-row" id="checkoutDonationRow" style="display:none;">
+        <span>Donasi</span>
+        <strong>Rp 5.000</strong>
+      </div>
+
+      <div class="summary-row total">
+        <span>Total Bayar</span>
+        <strong id="checkoutTotal">Rp 0</strong>
+      </div>
+
+      <button class="btn-checkout" onclick="submitOrder()">
+        <i class="fas fa-paper-plane"></i> Buat Pesanan
+      </button>
+    </aside>
+  </div>
+</main>
+
+<script src="js/main.js?v=63"></script>
+<script src="js/checkout.js?v=1"></script>
+
+</body>
+</html>
