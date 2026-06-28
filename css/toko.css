@@ -527,3 +527,198 @@ body{
     padding:16px;
   }
 }
+
+.cart-page{
+  padding-top:18px;
+}
+
+.cart-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.cart-title h1{
+  margin:0;
+  font-size:1.35rem;
+  color:var(--text-dark);
+}
+
+.cart-layout{
+  display:grid;
+  grid-template-columns:1fr 330px;
+  gap:18px;
+  align-items:start;
+}
+
+.cart-panel,
+.cart-summary{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);
+}
+
+.cart-panel{
+  overflow:hidden;
+}
+
+.cart-item{
+  display:grid;
+  grid-template-columns:90px 1fr auto;
+  gap:14px;
+  padding:14px;
+  border-bottom:1px solid #f1f1f1;
+  align-items:center;
+}
+
+.cart-item:last-child{
+  border-bottom:none;
+}
+
+.cart-item-img{
+  width:90px;
+  height:90px;
+  border-radius:12px;
+  object-fit:cover;
+  background:#f3f4f6;
+}
+
+.cart-item-name{
+  font-weight:800;
+  color:var(--text-dark);
+  margin-bottom:5px;
+}
+
+.cart-item-meta{
+  font-size:.8rem;
+  color:var(--text-muted);
+  margin-bottom:8px;
+}
+
+.cart-item-price{
+  color:#ee4d2d;
+  font-weight:900;
+}
+
+.cart-qty{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  justify-content:flex-end;
+  margin-bottom:8px;
+}
+
+.cart-qty button{
+  width:30px;
+  height:30px;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:900;
+}
+
+.cart-qty span{
+  min-width:28px;
+  text-align:center;
+  font-weight:800;
+}
+
+.cart-remove{
+  border:none;
+  background:#fee2e2;
+  color:#b91c1c;
+  border-radius:8px;
+  padding:7px 10px;
+  cursor:pointer;
+  font-weight:800;
+}
+
+.cart-summary{
+  padding:18px;
+  position:sticky;
+  top:75px;
+}
+
+.cart-summary h3{
+  margin:0 0 14px;
+  color:var(--text-dark);
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+  font-size:.9rem;
+}
+
+.summary-row span{
+  color:var(--text-muted);
+}
+
+.summary-row.total{
+  font-size:1.05rem;
+  margin-top:12px;
+}
+
+.donation-check{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:800;
+  color:var(--primary);
+}
+
+.btn-checkout{
+  width:100%;
+  border:none;
+  background:#ee4d2d;
+  color:#fff;
+  border-radius:12px;
+  padding:13px;
+  font-weight:900;
+  cursor:pointer;
+  margin-top:12px;
+}
+
+.empty-cart{
+  text-align:center;
+  padding:45px 18px;
+  color:var(--text-muted);
+}
+
+.empty-cart i{
+  font-size:2.4rem;
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+@media(max-width:850px){
+  .cart-layout{
+    grid-template-columns:1fr;
+  }
+
+  .cart-summary{
+    position:static;
+  }
+
+  .cart-item{
+    grid-template-columns:72px 1fr;
+  }
+
+  .cart-item-img{
+    width:72px;
+    height:72px;
+  }
+
+  .cart-item-actions{
+    grid-column:1/-1;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+}
