@@ -7,9 +7,9 @@ body{
   position:sticky;
   top:0;
   z-index:1000;
-  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  background:#fff;
   padding:10px 0;
-  box-shadow:0 3px 12px rgba(0,0,0,.12);
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
 }
 
 .store-header-inner{
@@ -29,8 +29,10 @@ body{
   flex:1;
   display:flex;
   background:#fff;
-  border-radius:10px;
+  border:1px solid #d9e5e1;
+  border-radius:12px;
   overflow:hidden;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 .store-search-box input{
@@ -44,7 +46,7 @@ body{
 .store-search-box button{
   width:48px;
   border:0;
-  background:#ff5722;
+  background:var(--primary);
   color:#fff;
   cursor:pointer;
 }
@@ -57,8 +59,9 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#fff;
-  border:1px solid rgba(255,255,255,.35);
+  color:var(--primary);
+  border:1px solid #d9e5e1;
+  background:#fff;
 }
 
 .store-cart-btn span{
