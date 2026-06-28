@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Keranjang - Toko Lazisnu</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/toko.css">
+</head>
+<body>
+
+<header class="store-header">
+  <div class="container store-header-inner">
+    <a href="toko.html" class="store-logo">
+      <img src="assets/logo.png" alt="Lazisnu">
+    </a>
+
+    <div class="store-search-box">
+      <input type="text" placeholder="Lanjut belanja di Toko Lazisnu..." onclick="window.location.href='toko.html'">
+      <button onclick="window.location.href='toko.html'"><i class="fas fa-search"></i></button>
+    </div>
+
+    <a href="keranjang.html" class="store-cart-btn">
+      <i class="fas fa-shopping-cart"></i>
+      <span id="cartCount">0</span>
+    </a>
+  </div>
+</header>
+
+<main class="container cart-page">
+  <div class="cart-title">
+    <h1><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h1>
+    <a href="toko.html" class="btn-refresh">
+      <i class="fas fa-arrow-left"></i> Lanjut Belanja
+    </a>
+  </div>
+
+  <div class="cart-layout">
+    <section class="cart-panel">
+      <div id="cartItems">
+        <div class="store-loading">
+          <i class="fas fa-spinner fa-spin"></i> Memuat keranjang...
+        </div>
+      </div>
+    </section>
+
+    <aside class="cart-summary">
+      <h3>Ringkasan Belanja</h3>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <strong id="cartSubtotal">Rp 0</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Total Berat</span>
+        <strong id="cartWeight">0 kg</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Donasi Tambahan</span>
+        <label class="donation-check">
+          <input type="checkbox" id="addDonation" onchange="renderCart()">
+          Rp5.000
+        </label>
+      </div>
+
+      <hr>
+
+      <div class="summary-row total">
+        <span>Total</span>
+        <strong id="cartTotal">Rp 0</strong>
+      </div>
+
+      <button class="btn-checkout" onclick="goCheckout()">
+        <i class="fas fa-credit-card"></i> Checkout
+      </button>
+    </aside>
+  </div>
+</main>
+
+<nav class="mobile-store-nav">
+  <a href="index.html"><i class="fas fa-home"></i><span>Beranda</span></a>
+  <a href="toko.html"><i class="fas fa-store"></i><span>Toko</span></a>
+  <a href="keranjang.html" class="active"><i class="fas fa-shopping-cart"></i><span>Keranjang</span></a>
+  <a href="login.html"><i class="fas fa-user"></i><span>Akun</span></a>
+</nav>
+
+<script src="js/main.js?v=62"></script>
+<script src="js/keranjang.js?v=1"></script>
+
+</body>
+</html>
