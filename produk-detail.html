@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Detail Produk - Toko Lazisnu</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/toko.css">
+</head>
+<body>
+
+<header class="store-header">
+  <div class="container store-header-inner">
+    <a href="toko.html" class="store-logo">
+      <img src="assets/logo.png" alt="Lazisnu">
+    </a>
+
+    <div class="store-search-box">
+      <input type="text" placeholder="Cari produk di Toko Lazisnu..." onclick="window.location.href='toko.html'">
+      <button onclick="window.location.href='toko.html'"><i class="fas fa-search"></i></button>
+    </div>
+
+    <a href="keranjang.html" class="store-cart-btn">
+      <i class="fas fa-shopping-cart"></i>
+      <span id="cartCount">0</span>
+    </a>
+  </div>
+</header>
+
+<main class="container product-detail-page">
+  <div id="productDetailBox" class="product-detail-box">
+    <div class="store-loading">
+      <i class="fas fa-spinner fa-spin"></i> Memuat detail produk...
+    </div>
+  </div>
+</main>
+
+<nav class="mobile-store-nav">
+  <a href="index.html"><i class="fas fa-home"></i><span>Beranda</span></a>
+  <a href="toko.html"><i class="fas fa-store"></i><span>Toko</span></a>
+  <a href="keranjang.html"><i class="fas fa-shopping-cart"></i><span>Keranjang</span></a>
+  <a href="login.html"><i class="fas fa-user"></i><span>Akun</span></a>
+</nav>
+
+<script src="js/main.js?v=61"></script>
+<script src="js/produk-detail.js?v=1"></script>
+
+</body>
+</html>
