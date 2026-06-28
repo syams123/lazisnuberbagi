@@ -161,7 +161,55 @@ function updateCartCount() {
   if (el) el.textContent = count;
 }
 
+let bannerIndex = 0;
+let bannerTimer = null;
+
+function initBannerSlider() {
+  const slides = document.querySelectorAll('.banner-slide');
+  const dots = document.getElementById('bannerDots');
+
+  if (!slides.length || !dots) return;
+
+  dots.innerHTML = Array.from(slides).map((_, i) => `
+    <button class="${i === 0 ? 'active' : ''}" onclick="goBanner(${i})"></button>
+  `).join('');
+
+  updateBanner();
+
+  bannerTimer = setInterval(() => {
+    moveBanner(1);
+  }, 4000);
+}
+
+function updateBanner() {
+  const track = document.getElementById('bannerTrack');
+  const slides = document.querySelectorAll('.banner-slide');
+  const dots = document.querySelectorAll('.banner-dots button');
+
+  if (!track || !slides.length) return;
+
+  if (bannerIndex < 0) bannerIndex = slides.length - 1;
+  if (bannerIndex >= slides.length) bannerIndex = 0;
+
+  track.style.transform = `translateX(-${bannerIndex * 100}%)`;
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === bannerIndex);
+  });
+}
+
+function moveBanner(step) {
+  bannerIndex += step;
+  updateBanner();
+}
+
+function goBanner(index) {
+  bannerIndex = index;
+  updateBanner();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initBannerSlider();
   loadStoreProducts();
 
   const search = document.getElementById('searchProduct');
