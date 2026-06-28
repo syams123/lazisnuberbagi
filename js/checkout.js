@@ -3,12 +3,6 @@
 const ADMIN_WA_STORE = '6288217237735';
 const DONATION_ADDON = 5000;
 
-const SHIPPING = {
-  base: 3000,
-  perKm: 1500,
-  perKg: 1000
-};
-
 function getCart() {
   return JSON.parse(localStorage.getItem('storeCart') || '[]');
 }
@@ -29,19 +23,26 @@ function getCartWeightGram(cart) {
   return cart.reduce((sum, item) => sum + Number(item.weight_gram || 0) * Number(item.qty || 0), 0);
 }
 
-function getSelectedDistanceKm() {
+function getSelectedShippingInfo() {
   const select = document.getElementById('buyerArea');
   const opt = select.options[select.selectedIndex];
-  return Number(opt?.dataset?.km || 0);
+
+  return {
+    area: select.value || '',
+    ongkir: Number(opt?.dataset?.ongkir || 0),
+    estimasi: opt?.dataset?.estimasi || '-'
+  };
 }
 
-function getShippingCost(distanceKm, weightGram) {
-  const weightKg = Math.ceil(Number(weightGram || 0) / 1000);
-  if (!distanceKm) return 0;
+function getWeightExtra(weightGram) {
+  const kg = Math.ceil(Number(weightGram || 0) / 1000);
 
-  return SHIPPING.base + Math.ceil(distanceKm) * SHIPPING.perKm + weightKg * SHIPPING.perKg;
+  if (kg <= 5) return 0;
+  if (kg <= 10) return 1000;
+  if (kg <= 15) return 2000;
+
+  return 3000;
 }
-
 function renderCheckout() {
   const cart = getCart();
 
