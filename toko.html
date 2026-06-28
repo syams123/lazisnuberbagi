@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Toko Lazisnu Kedungrejo</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/toko.css">
+</head>
+
+<body>
+
+<header class="store-header">
+  <div class="container store-header-inner">
+    <a href="index.html" class="store-logo">
+      <img src="assets/logo.png" alt="Lazisnu">
+    </a>
+
+    <div class="store-search-box">
+      <input type="text" id="searchProduct" placeholder="Cari produk di Toko Lazisnu...">
+      <button onclick="filterProducts()"><i class="fas fa-search"></i></button>
+    </div>
+
+    <a href="keranjang.html" class="store-cart-btn">
+      <i class="fas fa-shopping-cart"></i>
+      <span id="cartCount">0</span>
+    </a>
+  </div>
+</header>
+
+<main class="store-main">
+
+  <section class="store-hero container">
+    <div>
+      <span class="store-badge">Khusus Desa Kedungrejo</span>
+      <h1>Toko Lazisnu Kedungrejo</h1>
+      <p>Belanja sembako, kebutuhan harian, dan produk warga. Pengiriman area Kedungrejo, Waru, Sidoarjo.</p>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="store-section-head">
+      <h2><i class="fas fa-th-large"></i> Kategori</h2>
+    </div>
+
+    <div class="category-scroll" id="categoryList">
+      <button class="category-chip active" onclick="setCategory('')">
+        <i class="fas fa-border-all"></i>
+        Semua
+      </button>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="store-section-head">
+      <h2><i class="fas fa-fire"></i> Produk Pilihan</h2>
+      <span>Belanja mudah, aman, dan cepat</span>
+    </div>
+
+    <div id="featuredProducts" class="product-grid">
+      <div class="store-loading"><i class="fas fa-spinner fa-spin"></i> Memuat produk...</div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="store-section-head">
+      <h2><i class="fas fa-clock"></i> Produk Terbaru</h2>
+      <span>Update dari Toko Lazisnu</span>
+    </div>
+
+    <div id="productGrid" class="product-grid">
+      <div class="store-loading"><i class="fas fa-spinner fa-spin"></i> Memuat produk...</div>
+    </div>
+  </section>
+
+</main>
+
+<nav class="mobile-store-nav">
+  <a href="index.html"><i class="fas fa-home"></i><span>Beranda</span></a>
+  <a href="toko.html" class="active"><i class="fas fa-store"></i><span>Toko</span></a>
+  <a href="keranjang.html"><i class="fas fa-shopping-cart"></i><span>Keranjang</span></a>
+  <a href="login.html"><i class="fas fa-user"></i><span>Akun</span></a>
+</nav>
+
+<script src="js/main.js?v=60"></script>
+<script src="js/toko.js?v=1"></script>
+
+</body>
+</html>
