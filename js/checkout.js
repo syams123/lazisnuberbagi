@@ -74,14 +74,17 @@ function calculateCheckout() {
 
   const subtotal = getCartSubtotal(cart);
   const weightGram = getCartWeightGram(cart);
-  const distanceKm = getSelectedDistanceKm();
-  const shipping = getShippingCost(distanceKm, weightGram);
+  const shippingInfo = getSelectedShippingInfo();
+  const weightExtra = getWeightExtra(weightGram);
+  const distanceKm = 0;
+  const shipping = shippingInfo.ongkir ? shippingInfo.ongkir + weightExtra : 0;
   const donation = localStorage.getItem('storeAddDonation') === 'true' ? DONATION_ADDON : 0;
   const total = subtotal + shipping + donation;
 
   document.getElementById('checkoutSubtotal').textContent = 'Rp ' + formatRupiah(subtotal);
   document.getElementById('checkoutWeight').textContent = formatWeight(weightGram);
-  document.getElementById('checkoutDistance').textContent = distanceKm ? distanceKm + ' km' : '-';
+  document.getElementById('checkoutDistance').textContent =
+  shippingInfo.area ? `${shippingInfo.area} • ${shippingInfo.estimasi}` : '-';
   document.getElementById('checkoutShipping').textContent = 'Rp ' + formatRupiah(shipping);
   document.getElementById('checkoutTotal').textContent = 'Rp ' + formatRupiah(total);
 
